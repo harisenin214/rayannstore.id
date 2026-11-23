@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#16A34A">
+<title>Rayanstore | FF Account Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-brands/css/uicons-brands.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--primary:#16A34A;--primary-dark:#15803D;--primary-glow:#16A34A22;--accent:#BEF264;--gold:#D97706;--gold-soft:#FEF3C7;--bg:#FAFBF8;--surface:#FFFFFF;--text:#18241C;--text-soft:#3B4C41;--muted:#6B7D72;--border:#E3EBE5;--border-strong:#C8D7CD;--soft:#EBF6EE;--soft-strong:#D5ECDC;--shadow-sm:0 2px 8px rgba(24,36,28,.04);--shadow-md:0 10px 26px rgba(24,36,28,.07);--shadow-lg:0 18px 38px rgba(24,36,28,.12);--r-xs:8px;--r-sm:12px;--r-md:16px;--r-lg:20px;--r-xl:24px;--font:'Plus Jakarta Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',monospace;--t:.22s ease}
+body.dark{--bg:#0E1812;--surface:#15241B;--text:#EEF8F1;--text-soft:#C7E0CF;--muted:#7B9B87;--border:#233B2C;--border-strong:#31523E;--soft:#193424;--soft-strong:#214731;--gold-soft:#3B2A0A;--shadow-sm:0 2px 8px rgba(0,0,0,.32);--shadow-md:0 10px 26px rgba(0,0,0,.44);--shadow-lg:0 18px 38px rgba(0,0,0,.58);--primary-glow:#22C55E2E}
+*{margin:0;padding:0;box-sizing:border-box;font-family:var(--font);-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);min-height:100vh;transition:background var(--t),color var(--t);overflow-x:hidden;line-height:1.65;-webkit-font-smoothing:antialiased;font-size:15px}
+button,input,textarea,select{font:inherit;color:inherit}
+button{border:0;cursor:pointer;background:none}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:8px}
+::selection{background:var(--primary);color:#fff}
+.topbar{height:68px;position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,48px);background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.top-left,.top-right{display:flex;align-items:center;gap:10px}
+.icon-button{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--r-sm);background:var(--soft);color:var(--primary-dark);font-size:18px;transition:var(--t);position:relative}
+body.dark .icon-button{color:#6EE7A0}
+.icon-button:hover{background:var(--soft-strong)}
+.cart-badge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;background:#DC2626;color:#fff;border-radius:10px;font-size:10px;font-weight:800;display:grid;place-items:center;border:2px solid var(--surface)}
+.brand-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.brand-logo .logo-wrap,.drawer-brand .logo-wrap{width:40px;height:40px;border-radius:var(--r-sm);background:var(--soft);padding:4px;flex-shrink:0;display:grid;place-items:center;overflow:hidden;border:1px solid var(--border)}
+.brand-logo .logo-wrap img,.drawer-brand .logo-wrap img{width:100%;height:100%;object-fit:contain;border-radius:8px}
+.brand-logo .logo-wrap i,.drawer-brand .logo-wrap i{font-size:20px;color:var(--primary)}
+.brand-text .name,.drawer-brand h2,.footer-brand{font-size:19px;font-weight:800;letter-spacing:-.4px}
+.brand-text .name span,.drawer-brand h2 span,.footer-brand span,.section-head h2 span,.struk-brand span{color:var(--primary)}
+.main{max-width:1120px;margin:auto;padding:24px clamp(16px,4vw,44px) 120px}
+.page{display:none}.page.active{display:block;animation:fadeUp .22s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);padding:clamp(24px,4vw,38px);background:linear-gradient(135deg,#0C3A1D 0%,#146C34 60%,#16A34A 100%);color:#fff;box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.hero-content{position:relative;z-index:2;max-width:640px}
+.hero-title-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hero-logo-box{width:54px;height:54px;border-radius:15px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);padding:6px;display:grid;place-items:center;flex-shrink:0;color:#fff;font-size:24px}
+.hero-logo-box img{width:100%;height:100%;object-fit:contain;border-radius:10px}
+.hero h1{font-size:clamp(25px,4vw,36px);line-height:1.18;letter-spacing:-.7px;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{font-size:14.5px;color:#E2FBE9;line-height:1.68;max-width:540px;margin-top:11px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.hero-btn-main,.cta-btn{background:var(--accent);color:#0B331A;padding:11px 18px;border-radius:var(--r-sm);font-size:13.5px;font-weight:800;display:inline-flex;align-items:center;gap:8px;transition:var(--t)}
+.hero-btn-main:hover{filter:brightness(1.03)}
+.hero-btn-ghost{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.26);padding:11px 18px;border-radius:var(--r-sm);font-size:13.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:var(--t)}
+.hero-btn-ghost:hover{background:rgba(255,255,255,.2)}
+
+.search-wrap{margin-top:18px}
+.search-box{height:52px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-md);display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:var(--shadow-sm);transition:var(--t)}
+.search-box:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-glow)}
+.search-box i{color:var(--primary);font-size:18px}
+.search-box input{border:0;outline:0;background:transparent;color:var(--text);width:100%;font-size:14.5px;font-weight:500}
+.search-box input::placeholder{color:var(--muted)}
+.filter-chips{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 4px;scrollbar-width:none}.filter-chips::-webkit-scrollbar{display:none}
+.chip-btn{padding:7px 14px;border-radius:99px;font-size:12.5px;font-weight:700;background:var(--surface);border:1px solid var(--border);color:var(--text-soft);white-space:nowrap;transition:var(--t);display:inline-flex;align-items:center;gap:6px}
+.chip-btn:hover{border-color:var(--primary);color:var(--primary)}.chip-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+.section{margin-top:40px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.section-head h2{font-size:clamp(19px,2.7vw,22px);font-weight:800;letter-spacing:-.4px}
+.section-head p{font-size:13.5px;color:var(--muted);margin-top:3px;line-height:1.6}
+.link-more{font-size:13px;font-weight:800;color:var(--primary);display:inline-flex;align-items:center;gap:5px}
+.benefit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.benefit{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;box-shadow:var(--shadow-sm);display:flex;gap:14px;align-items:flex-start}
+.benefit-icon,.step-num,.setting-icon{width:42px;height:42px;border-radius:var(--r-sm);background:var(--soft);color:var(--primary-dark);display:grid;place-items:center;font-size:19px;flex-shrink:0;font-weight:800}
+body.dark .benefit-icon,body.dark .step-num,body.dark .setting-icon{color:#6EE7A0}
+.benefit h3{font-size:15px;font-weight:800;margin-bottom:5px}.benefit p{font-size:13px;color:var(--text-soft);line-height:1.65;margin-bottom:3px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow-sm)}
+.step-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.step-num{width:34px;height:34px;border-radius:10px;font-size:13px}.step-icon{color:var(--muted);font-size:16px}
+.step h4{font-size:14px;font-weight:800;margin-bottom:4px}.step p{font-size:12.5px;color:var(--muted);line-height:1.6}
+.cta{background:linear-gradient(130deg,#0C3A1D 0%,#15803D 100%);border-radius:var(--r-xl);padding:clamp(22px,3.8vw,34px);color:#fff;margin-top:40px;box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.cta h3{font-size:clamp(19px,2.8vw,23px);font-weight:800;margin-bottom:5px}.cta p{font-size:14px;color:#E2FBE9;line-height:1.65;max-width:520px}
+.button-primary,.button-secondary,.button-booking{padding:12px 18px;border-radius:var(--r-sm);font-size:13.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:var(--t)}
+.button-primary{background:var(--primary);color:#fff}.button-primary:hover{background:var(--primary-dark)}.button-primary:disabled{background:var(--muted);cursor:not-allowed;opacity:.7}
+.button-secondary{background:var(--soft);color:var(--primary-dark)}.button-secondary:hover{background:var(--soft-strong)}
+body.dark .button-secondary,body.dark .back-button,body.dark .detail-badge,body.dark .sold-tag,body.dark .pay-method.active,body.dark .sell-pill.done,body.dark .opt-card.selected,body.dark .tag-chip.selected,body.dark .sell-preview-badge,body.dark .range-box{color:#86EFAC}
+.button-booking{background:var(--gold-soft);color:#B45309;border:1px solid #F59E0B55}
+body.dark .button-booking,body.dark .mini-book-btn{color:#FCD34D}
+.product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;cursor:pointer;transition:var(--t);display:flex;flex-direction:column;box-shadow:var(--shadow-sm)}
+.product-card:hover{box-shadow:var(--shadow-md);border-color:var(--primary)}
+.product-image{height:195px;background:var(--soft);position:relative;overflow:hidden}
+.product-image img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.product-card:hover .product-image img{transform:scale(1.02)}
+.stock-label{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:99px;background:var(--primary);color:#fff;font-size:10px;font-weight:800;letter-spacing:.4px}
+.stock-label.coming{background:var(--gold)}.stock-label.booked{background:#DC2626}
+.spec-pills{position:absolute;bottom:8px;left:8px;right:8px;display:flex;gap:5px;flex-wrap:wrap}
+.spec-pill{background:rgba(12,24,16,.76);color:#ECFDF5;padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700}
+.product-info{padding:15px 16px;flex:1;display:flex;flex-direction:column}
+.product-info h3{font-size:15.5px;font-weight:800}
+.product-info p{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.58;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.product-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:14px}
+.product-price-wrap{display:flex;flex-direction:column;gap:2px}
+.product-price{font-size:16.5px;font-weight:800;color:var(--primary-dark);line-height:1}
+body.dark .product-price,body.dark .detail-price,body.dark .cart-info .cart-price,body.dark .cart-total-row strong,body.dark .checkout-list-item .price,body.dark .book-acc-preview span,body.dark .preview-price-box strong,body.dark .nav-item.active,body.dark .hist-amount{color:#6EE7A0}
+.product-price-old{font-size:11px;color:var(--muted);text-decoration:line-through;line-height:1}
+.product-actions-mini{display:flex;gap:6px}
+.mini-book-btn{padding:7px 10px;border-radius:var(--r-xs);background:var(--gold-soft);color:#B45309;font-size:11px;font-weight:800}
+.product-arrow{width:34px;height:34px;display:grid;place-items:center;border-radius:var(--r-xs);background:var(--soft);color:var(--primary-dark);flex-shrink:0}
+body.dark .product-arrow{color:#6EE7A0}
+.product-card.coming-soon{cursor:default;opacity:.92}.product-card.coming-soon:hover{border-color:var(--border)}
+.empty{padding:42px 24px;background:var(--surface);border:1px dashed var(--border-strong);border-radius:var(--r-md);text-align:center;grid-column:1/-1}
+.empty i{font-size:36px;color:var(--primary);opacity:.55}.empty h3{font-size:16px;margin-top:10px;font-weight:800}.empty p{font-size:13px;color:var(--muted);margin-top:5px}
+.heading{margin-bottom:20px}.heading h1{font-size:clamp(24px,3.8vw,29px);font-weight:800;letter-spacing:-.6px;line-height:1.18}.heading p{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.65;max-width:620px}
+.back-button{background:var(--soft);color:var(--primary-dark);padding:9px 15px;border-radius:var(--r-sm);font-size:13px;font-weight:700;margin-bottom:16px;display:inline-flex;align-items:center;gap:6px}
+.detail-gallery{width:100%;height:370px;border-radius:var(--r-lg);background:var(--soft);overflow:hidden;position:relative;border:1px solid var(--border)}
+.gallery-track{display:flex;height:100%;transition:transform .3s ease}.gallery-track img{width:100%;height:100%;object-fit:cover;flex-shrink:0}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(15,23,42,.55);color:#fff;font-size:15px;display:grid;place-items:center}
+.gallery-arrow.prev{left:12px}.gallery-arrow.next{right:12px}
+.gallery-counter{position:absolute;bottom:12px;right:12px;background:rgba(15,23,42,.65);color:#fff;font-size:12px;padding:5px 11px;border-radius:12px;font-weight:700}
+.gallery-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.gallery-dot{width:8px;height:8px;border-radius:20px;background:var(--border-strong)}.gallery-dot.active{width:22px;background:var(--primary)}
+.detail-top{margin-top:20px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.detail-top h1{font-size:clamp(22px,3.8vw,27px);font-weight:800}.detail-top .detail-sub{font-size:13px;color:var(--muted);margin-top:3px}
+.detail-price-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.detail-price{font-size:24px;font-weight:800;color:var(--primary-dark);line-height:1}.detail-price-old{font-size:13px;color:var(--muted);text-decoration:line-through}
+.detail-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:12px;background:var(--soft);color:var(--primary-dark);font-size:10px;font-weight:800;margin-bottom:8px}
+.detail-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--primary)}
+.detail-cta-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px}
+.detail-specs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+.spec{padding:14px 16px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--border)}
+.spec span{font-size:11.5px;color:var(--muted);display:block;margin-bottom:3px;font-weight:600}.spec strong{font-size:15px;font-weight:800}
+.detail-block{margin-top:30px}.detail-block-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.detail-block-title h2{font-size:19px;font-weight:800}.detail-block-title span{font-size:12px;color:var(--muted);font-weight:700}
+.weapon-grid,.bundle-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.weapon-card,.bundle-card{border-radius:var(--r-lg);overflow:hidden;border:1.5px solid rgba(255,255,255,.12);box-shadow:var(--shadow-sm)}
+.weapon-card-inner{padding:20px;min-height:215px;display:flex;flex-direction:column}
+.weapon-icon-wrap,.bundle-icon-wrap{width:46px;height:46px;border-radius:var(--r-sm);display:grid;place-items:center;font-size:21px;margin-bottom:12px;background:rgba(255,255,255,.16)}
+.weapon-badge,.bundle-badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:10px;font-size:9.5px;font-weight:800;letter-spacing:.5px;margin-bottom:8px;align-self:flex-start}
+.weapon-title,.bundle-title{font-size:18px;font-weight:800;line-height:1.2;margin-bottom:3px}.weapon-fullname,.bundle-subtitle{font-size:11.5px;opacity:.88;margin-bottom:12px}
+.weapon-attrs{display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid rgba(255,255,255,.24);margin-top:auto}
+.weapon-attr{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;font-weight:600}
+.weapon-attr .attr-val{font-family:var(--font-mono);font-weight:800;font-size:11.5px;padding:2px 8px;border-radius:6px;background:rgba(0,0,0,.22)}
+.weapon-attr .attr-val.plus{color:#BEF264}
+.weapon-attr .attr-val.minus{color:#FCA5A5}
+
+.theme-cobra{background:linear-gradient(135deg,#6B1111,#450A0A);color:#FEF2F2}
+.theme-cobra .weapon-badge{background:#F59E0B;color:#450A0A}
+
+.theme-scar{background:linear-gradient(135deg,#991B1B,#7F1D1D);color:#FEF2F2}
+.theme-scar .weapon-badge{background:#FBBF24;color:#450A0A}
+
+.theme-cyclone{background:linear-gradient(135deg,#7E22CE,#4C1D95);color:#F5F3FF}
+.theme-cyclone .weapon-badge{background:rgba(15,23,42,.55);color:#E9D5FF}
+
+/* Polos gradasi hijau lumut tanpa tekstur */
+.theme-lumut{background:linear-gradient(135deg,#3E6B2B 0%,#284B1B 100%);color:#F2FCEB}
+.theme-lumut .weapon-badge{background:#D9F99D;color:#1D3812}
+
+.bundle-card-inner{padding:20px;min-height:180px;display:flex;flex-direction:column}
+.bundle-items{display:flex;flex-wrap:wrap;gap:6px;padding-top:12px;border-top:1px solid rgba(255,255,255,.24);margin-top:auto}
+.bundle-item-chip{padding:4px 10px;border-radius:8px;font-size:11px;font-weight:700;background:rgba(0,0,0,.25)}
+
+.theme-sakura{background:linear-gradient(135deg,#C084FC 0%,#EC4899 58%,#F472B6 100%);color:#FFF1F8}
+.theme-sakura .bundle-badge{background:rgba(255,255,255,.24);color:#FFF;border:1px solid rgba(255,255,255,.35)}
+
+.theme-trap{background:linear-gradient(135deg,#6D28D9 0%,#4C1D95 100%);color:#F5F3FF}
+.theme-trap .bundle-badge{background:#E9D5FF;color:#3B0764}
+
+.theme-scorpio{background:linear-gradient(135deg,#5C0A0A 0%,#991B1B 55%,#DC2626 100%);color:#FEF2F2}
+.theme-scorpio .bundle-badge{background:#FCA5A5;color:#450A0A}
+
+.theme-opm{background:linear-gradient(135deg,#FACC15 0%,#F97316 100%);color:#291300}
+.theme-opm .bundle-badge{background:#291300;color:#FDE047}
+.theme-opm .bundle-item-chip{background:rgba(41,19,0,.18);color:#291300}
+
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:20px;margin-top:12px;box-shadow:var(--shadow-sm)}
+.info-card h3{font-size:15px;font-weight:800;margin-bottom:8px}.info-card p{font-size:13.5px;color:var(--text-soft);line-height:1.7}
+.cart-list{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.cart-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow-sm)}
+.cart-check{width:20px;height:20px;flex-shrink:0;accent-color:var(--primary);cursor:pointer}.cart-img{width:68px;height:68px;border-radius:var(--r-sm);background:var(--soft);object-fit:cover;flex-shrink:0}
+.cart-info{flex:1;min-width:0}.cart-info h4{font-size:14px;font-weight:800}.cart-info .cart-price{font-size:15px;font-weight:800;color:var(--primary-dark);margin-top:4px}
+.cart-remove{width:36px;height:36px;border-radius:var(--r-xs);background:#FEE2E2;color:#991B1B;display:grid;place-items:center;flex-shrink:0;font-size:16px}
+.cart-summary,.checkout-section,.sell-card,.sell-preview-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:20px;box-shadow:var(--shadow-sm);margin-bottom:14px}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px dashed var(--border)}
+.cart-total-row span{font-size:14px;color:var(--muted);font-weight:600}.cart-total-row strong{font-size:20px;font-weight:800;color:var(--primary-dark)}
+.checkout-section h3{font-size:15px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}.checkout-section h3 i{color:var(--primary);font-size:18px}
+.checkout-list-item,.preview-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;font-size:13px;border-bottom:1px dashed var(--border)}
+.checkout-list-item:last-child,.preview-row:last-of-type{border-bottom:0}.checkout-list-item .name{color:var(--text-soft);font-weight:600;flex:1}.checkout-list-item .price{font-weight:800;color:var(--primary-dark)}
+.form-field,.field-group input,.field-group select,.field-group textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;color:var(--text);font-size:14px;margin-top:8px;outline:0;font-weight:500}
+.form-field:focus,.field-group input:focus,.field-group select:focus,.field-group textarea:focus{border-color:var(--primary)}
+textarea.form-field{min-height:80px;resize:vertical}.form-label,.field-group label{display:block;font-size:13px;font-weight:800;color:var(--text-soft);margin-top:12px}.form-hint{font-size:11.5px;color:var(--muted);margin-top:4px}
+.pay-methods,.option-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.pay-method,.opt-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:13px 8px;text-align:center;font-size:12px;font-weight:800;color:var(--text-soft);display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.pay-method i,.opt-card i{font-size:20px;color:var(--primary)}.pay-method.active,.opt-card.selected{border-color:var(--primary);background:var(--soft);color:var(--primary-dark)}
+.range-box{margin-top:10px;padding:12px 14px;border-radius:var(--r-sm);background:var(--soft);border:1px solid var(--soft-strong);color:var(--primary-dark)}
+.range-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.range-top span{font-size:11.5px;font-weight:700;opacity:.9}
+.range-top strong{font-size:15px;font-weight:800;font-family:var(--font-mono)}
+.range-sub{font-size:11.5px;color:var(--text-soft);margin-top:4px}
+.range-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.est-btn{padding:7px 11px;border-radius:var(--r-xs);background:var(--surface);border:1px solid var(--border-strong);color:var(--primary-dark);font-size:11.5px;font-weight:800;display:inline-flex;align-items:center;gap:5px}
+body.dark .est-btn{color:#86EFAC}
+.modal-overlay,.struk-overlay{position:fixed;inset:0;z-index:95;background:rgba(10,20,14,.62);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.modal-card{background:var(--surface);color:var(--text);width:100%;max-width:440px;border-radius:var(--r-lg);padding:24px;box-shadow:var(--shadow-lg);border:1px solid var(--border);animation:fadeUp .2s ease}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-head h3{font-size:18px;font-weight:800;display:flex;align-items:center;gap:8px}.modal-head h3 i{color:var(--gold);font-size:21px}
+.modal-close{width:34px;height:34px;border-radius:10px;background:var(--bg);display:grid;place-items:center;color:var(--muted)}
+.book-acc-preview{background:var(--soft);border:1px solid var(--soft-strong);border-radius:var(--r-sm);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.book-acc-preview strong{font-size:13.5px;display:block}.book-acc-preview span{font-size:12px;color:var(--primary-dark);font-weight:800}
+.modal-actions{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:18px}
+.struk-wrap{background:#FFF;color:#0F172A;width:100%;max-width:400px;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.38);margin:auto}
+.struk-head{background:linear-gradient(135deg,#0B3B1E,#16A34A);color:#fff;padding:24px 20px;text-align:center}.struk-head.booking-theme{background:linear-gradient(135deg,#78350F,#D97706)}
+.struk-brand{font-size:20px;font-weight:800}.struk-head h3{font-size:11px;font-weight:800;letter-spacing:2px;margin-top:4px;color:#BBF7D0}
+.struk-body{padding:20px;background:#FFF;font-family:var(--font-mono)}
+.struk-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;font-size:12px;border-bottom:1px dashed #E2E8F0}.struk-row:last-of-type{border-bottom:0}
+.struk-row .label{color:#64748B;font-weight:600;font-size:11px;font-family:var(--font)}.struk-row .value{text-align:right;font-weight:700;color:#0F172A;word-break:break-word}
+.struk-total{margin-top:12px;padding:14px;background:linear-gradient(135deg,#0B3B1E,#16A34A);border-radius:12px;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.struk-total.booking-theme{background:linear-gradient(135deg,#78350F,#D97706)}.struk-total .label{font-size:11px;font-weight:800;letter-spacing:1px;color:#FEF3C7;font-family:var(--font)}.struk-total .value{font-size:18px;font-weight:800}
+.struk-foot{padding:0 20px 20px;display:grid;gap:8px;background:#FFF}
+.struk-btn{width:100%;padding:12px;border-radius:12px;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px}
+.struk-btn.save,.struk-btn.wa{background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff}.struk-btn.close{background:#F1F5F9;color:#475569}
+.sold-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+.sold-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-sm)}
+.sold-img{width:100%;height:210px;object-fit:cover;background:var(--soft)}.sold-body{padding:16px 18px}
+.sold-tag{display:inline-block;padding:4px 10px;border-radius:99px;background:var(--soft);color:var(--primary-dark);font-size:10px;font-weight:800;margin-bottom:8px;font-family:var(--font-mono)}
+.sold-body h3{font-size:15.5px;font-weight:800;font-family:var(--font-mono);letter-spacing:-.3px}
+.sell-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
+.sell-progress-wrap{margin-bottom:18px}.sell-progress-track{height:6px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:12px}
+.sell-progress-fill{height:100%;background:var(--primary);border-radius:99px;transition:width .3s ease}
+.sell-steps-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sell-pill{padding:10px 12px;border-radius:var(--r-sm);font-size:12px;font-weight:800;background:var(--surface);border:1.5px solid var(--border);color:var(--muted);display:flex;align-items:center;gap:8px}
+.sell-pill .num{width:22px;height:22px;border-radius:6px;background:var(--bg);display:grid;place-items:center;font-size:11px;flex-shrink:0}
+.sell-pill.active{border-color:var(--primary);color:var(--text)}.sell-pill.active .num,.sell-pill.done .num{background:var(--primary);color:#fff}
+.sell-pill.done{background:var(--soft);border-color:var(--primary);color:var(--primary-dark)}
+.sell-card-head{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}.sell-card-head h3{font-size:17px;font-weight:800}.sell-card-head p{font-size:12.5px;color:var(--muted);margin-top:3px}
+.field-group{margin-bottom:16px}.opt-card small{font-size:11px;color:var(--muted);line-height:1.3}
+.tag-select-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag-chip{padding:9px 13px;border-radius:var(--r-sm);background:var(--bg);border:1.5px solid var(--border);font-size:12.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.tag-chip.selected{background:var(--soft);border-color:var(--primary);color:var(--primary-dark)}
+.sell-preview-card{position:sticky;top:90px}.sell-preview-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:var(--soft);color:var(--primary-dark);font-size:11px;font-weight:800;margin-bottom:12px}
+.preview-row span{color:var(--muted);font-weight:600}.preview-row strong{font-weight:800;text-align:right}
+.preview-price-box{margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);background:var(--soft);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.preview-price-box span{font-size:12px;font-weight:700;color:var(--text-soft)}.preview-price-box strong{font-size:15px;font-weight:800;color:var(--primary-dark)}
+.wizard-nav{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.hist-list{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.hist-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow-sm)}
+.hist-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hist-tag{padding:4px 10px;border-radius:99px;font-size:10.5px;font-weight:800;background:var(--soft);color:var(--primary-dark)}
+.hist-tag.book{background:var(--gold-soft);color:#B45309}
+.hist-tag.sell{background:#DBEAFE;color:#1D4ED8}
+.hist-code{font-family:var(--font-mono);font-size:12px;color:var(--muted);font-weight:700}
+.hist-title{font-size:15px;font-weight:800;margin-top:8px}
+.hist-meta{font-size:12.5px;color:var(--muted);margin-top:3px}
+.hist-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);flex-wrap:wrap}
+.hist-amount{font-size:15px;font-weight:800;color:var(--primary-dark)}
+.hist-actions{display:flex;gap:8px;flex-wrap:wrap}
+.hist-mini-btn{padding:7px 12px;border-radius:var(--r-xs);background:var(--soft);color:var(--primary-dark);font-size:12px;font-weight:800;display:inline-flex;align-items:center;gap:6px}
+body.dark .hist-mini-btn{color:#86EFAC}
+.wa-float{position:fixed;right:18px;bottom:88px;z-index:35;width:52px;height:52px;border-radius:var(--r-md);background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;font-size:22px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(22,163,74,.32)}
+.wa-panel{position:fixed;right:16px;bottom:150px;z-index:65;width:min(365px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg);display:none}
+.wa-panel.show{display:block;animation:fadeUp .18s ease}
+.wa-header{padding:15px 18px;background:linear-gradient(135deg,#0B3B1E,#16A34A);color:#fff;display:flex;align-items:center;justify-content:space-between}
+.wa-header strong{font-size:15px;font-weight:800;display:block}.wa-header small{font-size:12px;color:#DCFCE7;font-weight:600}
+.wa-header button{background:rgba(255,255,255,.18);color:#fff;width:32px;height:32px;border-radius:var(--r-xs);display:grid;place-items:center}
+.wa-body{padding:16px 18px}.wa-bubble{background:var(--soft);padding:12px 14px;border-radius:14px 14px 14px 4px;font-size:13px;line-height:1.6}
+.wa-input{width:100%;margin-top:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);border-radius:var(--r-sm);padding:11px 12px;font-size:13px;resize:vertical;min-height:70px;outline:0}
+.wa-send{width:100%;margin-top:10px;background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;padding:12px;border-radius:var(--r-sm);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px}
+.overlay{position:fixed;inset:0;z-index:55;background:rgba(10,20,14,.48);opacity:0;visibility:hidden;transition:var(--t)}.overlay.show{opacity:1;visibility:visible}
+.drawer{position:fixed;z-index:60;left:-320px;top:0;width:296px;height:100%;overflow-y:auto;background:var(--surface);padding:22px;transition:left .22s ease;box-shadow:var(--shadow-lg);border-right:1px solid var(--border)}.drawer.show{left:0}
+.drawer-brand{padding-bottom:18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.drawer-label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1.4px;margin:18px 0 8px 10px}
+.drawer-item{width:100%;display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:var(--r-sm);color:var(--text);font-size:13.5px;font-weight:700;text-align:left}
+.drawer-item i{width:18px;color:var(--primary);font-size:17px}.drawer-item:hover{background:var(--soft);color:var(--primary-dark)}
+.setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);margin-top:10px}
+.setting-left{display:flex;align-items:center;gap:12px}.setting-left strong{display:block;font-size:14px;font-weight:800}.setting-left small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.switch{appearance:none;width:46px;height:25px;background:#CBD5E1;border-radius:20px;position:relative;cursor:pointer}
+.switch::before{content:"";position:absolute;width:19px;height:19px;background:#fff;top:3px;left:3px;border-radius:50%;transition:var(--t)}
+.switch:checked{background:var(--primary)}.switch:checked::before{transform:translateX(21px)}
+.info-list{display:grid;gap:12px;margin-top:12px}.info-row{display:flex;gap:12px;align-items:flex-start}
+.info-row i{color:var(--primary);font-size:18px;flex-shrink:0;margin-top:2px}.info-row strong{font-size:13.5px;font-weight:800}.info-row p{font-size:13px;color:var(--muted);margin-top:2px}
+.bottom-nav{height:74px;position:fixed;bottom:0;left:0;right:0;z-index:45;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding-bottom:env(safe-area-inset-bottom)}
+.nav-item{color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:56px;font-size:10px;font-weight:700}
+.nav-item i{font-size:21px}.nav-item.active{color:var(--primary-dark)}.nav-item.active i{background:var(--soft);padding:7px 14px;border-radius:var(--r-sm)}
+.footer{max-width:1120px;margin:auto;padding:30px clamp(16px,4vw,44px) 116px;border-top:1px solid var(--border)}
+.footer p{font-size:13px;color:var(--muted);margin-top:6px}.footer-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px}
+.footer-links button{font-size:13px;font-weight:600;color:var(--muted);padding:4px 0}.footer-links button:hover{color:var(--primary)}
+.footer-copy{font-size:12px;color:var(--muted);margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.toast{position:fixed;z-index:100;bottom:92px;left:50%;transform:translate(-50%,16px);background:#0B3B1E;color:#fff;padding:13px 22px;border-radius:var(--r-sm);font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:var(--t);box-shadow:var(--shadow-lg);max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.detail-specs,.benefit-grid,.steps,.weapon-grid,.bundle-grid,.sold-grid,.sell-layout{grid-template-columns:1fr}.sell-preview-card{position:static}.hero{flex-direction:column;align-items:flex-start}}
+@media(max-width:700px){.topbar{height:64px;padding:0 4%}.main{padding:18px 4% 115px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-image{height:140px}.detail-gallery{height:255px}.detail-top{display:block}.detail-price-wrap{margin-top:12px;align-items:flex-start}.detail-cta-grid,.pay-methods,.option-cards,.sell-steps-bar{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="top-left">
+    <button class="icon-button" onclick="openDrawer()" aria-label="Menu"><i class="fi fi-sr-menu-burger"></i></button>
+    <div class="brand-logo" onclick="showPage('home')">
+      <div class="logo-wrap"><img id="topLogoImg" alt="Logo Rayanstore" referrerpolicy="no-referrer" onload="this.dataset.loaded='1'" onerror="handleImgError(this,'logo','topLogoImg')"></div>
+      <div class="brand-text"><span class="name">rayan<span>store</span></span></div>
+    </div>
+  </div>
+  <div class="top-right">
+    <button class="icon-button" onclick="showPage('sell')" title="Jual Akun" aria-label="Jual Akun"><i class="fi fi-sr-handshake"></i></button>
+    <button class="icon-button" onclick="showPage('cart')" aria-label="Keranjang"><i class="fi fi-sr-shopping-cart"></i><span class="cart-badge" id="cartBadge" style="display:none">0</span></button>
+  </div>
+</header>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-brand">
+    <div class="logo-wrap"><img id="drawerLogoImg" alt="Logo Rayanstore" referrerpolicy="no-referrer" onload="this.dataset.loaded='1'" onerror="handleImgError(this,'logo','drawerLogoImg')"></div>
+    <div><h2>rayan<span>store</span></h2></div>
+  </div>
+  <div class="drawer-label">MENU</div><div id="mainMenu"></div>
+  <div class="drawer-label">INFO TOKO</div><div id="storeMenu"></div>
+  <div class="drawer-label">LAINNYA</div><div id="prefMenu"></div>
+</aside>
+
+<main class="main">
+<section class="page active" id="home">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-title-row">
+        <div class="hero-logo-box">
+          <img id="heroLogoImg" alt="Logo Rayanstore" referrerpolicy="no-referrer" onload="this.dataset.loaded='1'" onerror="handleImgError(this,'hero','heroLogoImg')">
+        </div>
+        <h1>Selamat datang di <em>Rayanstore</em></h1>
+      </div>
+      <p>Cari akun Free Fire dengan spek yang jelas dan apa adanya. Bisa langsung dibeli atau diamankan lewat booking DP dulu.</p>
+      <div class="hero-actions">
+        <button class="hero-btn-main" onclick="showPage('catalog')"><i class="fi fi-sr-shopping-bag"></i>Lihat Katalog</button>
+        <button class="hero-btn-ghost" onclick="showPage('sell')"><i class="fi fi-sr-handshake"></i>Jual / Setor Akun</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <i class="fi fi-sr-search"></i>
+      <input type="search" id="homeSearch" placeholder="Cari akun sesuai spek (contoh: SG2, Evo, Sakura, OPM)..." oninput="searchFromHome(this.value)">
+    </div>
+    <div class="filter-chips" id="homeChips">
+      <button class="chip-btn active" onclick="pickHomeChip(this,'')"><i class="fi fi-sr-apps"></i>Semua</button>
+      <button class="chip-btn" onclick="pickHomeChip(this,'sg')"><i class="fi fi-sr-flame"></i>SG2 / Shotgun</button>
+      <button class="chip-btn" onclick="pickHomeChip(this,'evo')"><i class="fi fi-sr-bolt"></i>Evo Max</button>
+      <button class="chip-btn" onclick="pickHomeChip(this,'sakura')"><i class="fi fi-sr-star"></i>Bundle &amp; Collab</button>
+      <button class="chip-btn" onclick="pickHomeChip(this,'google')"><i class="fi fi-sr-shield-check"></i>Login Google</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div><h2>Stok Ready</h2><p>Cek detailnya dulu atau klik Booking kalau mau keep dulu.</p></div><button class="link-more" onclick="showPage('catalog')">Lihat Semua <i class="fi fi-sr-arrow-right"></i></button></div>
+    <div class="product-grid" id="homeGrid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div><h2>Kenapa di Rayan<span>store</span>?</h2><p>Hal-hal simpel yang bikin transaksi terasa lebih tenang</p></div></div>
+    <div class="benefit-grid" id="benefits"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div><h2>Alur Beli &amp; Booking</h2><p>Tinggal ikutin empat langkah ini</p></div></div>
+    <div class="steps" id="steps"></div>
+  </div>
+
+  <div class="cta">
+    <div><h3>Mau Tanya, Nego, atau Booking?</h3><p>Langsung ngobrol aja sama admin buat cek stok, nego wajar, atau konfirmasi pembayaran.</p></div>
+    <button class="cta-btn" onclick="toggleWhatsApp()"><i class="fi fi-brands-whatsapp"></i> Chat Admin</button>
+  </div>
+</section>
+
+<section class="page" id="catalog">
+  <div class="heading"><h1>Katalog Akun</h1><p>Daftar akun yang tersedia untuk dibeli langsung maupun dibooking.</p></div>
+  <div class="search-box" style="margin-top:0;margin-bottom:16px"><i class="fi fi-sr-search"></i><input type="search" id="catalogSearch" placeholder="Cari akun, bind, bundle, senjata..." oninput="searchCatalog(this.value)"></div>
+  <div class="result-line" style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center"><strong style="font-size:16px;font-weight:800">Daftar Stok</strong><span id="resultCount" style="font-size:13px;color:var(--muted);font-weight:600">0 unit</span></div>
+  <div class="product-grid" id="catalogGrid"></div>
+  <div class="section" id="comingSoonSection" style="display:none">
+    <div class="section-head"><div><h2>Coming Soon</h2><p>Stok berikutnya lagi disiapin</p></div></div>
+    <div class="product-grid" id="comingSoonGrid"></div>
+  </div>
+</section>
+
+<section class="page" id="accountDetail"><button class="back-button" onclick="goBack()"><i class="fi fi-sr-arrow-left"></i> Kembali</button><div id="detailContent"></div></section>
+<section class="page" id="cart"><div class="heading"><h1>Keranjang</h1><p>Pilih akun yang mau lu checkout.</p></div><div id="cartContent"></div></section>
+<section class="page" id="checkout"><div class="heading"><h1>Checkout</h1><p>Lengkapi data pembeli dan pilih metode pembayaran untuk membuat struk.</p></div><div id="checkoutContent"></div></section>
+
+<section class="page" id="soldout">
+  <div class="heading"><h1>Arsip Sold Out</h1><p>Akun yang sudah laku (3 slot).</p></div>
+  <div class="sold-grid" id="soldGrid"></div>
+</section>
+
+<section class="page" id="sell">
+  <div class="heading"><h1>Jual / Setor Akun</h1><p>Batas budget toko maksimal Rp300.000 dengan batas bawah Rp80.000. Range tawaran dihitung otomatis dari spek yang lu pilih.</p></div>
+  <div class="sell-progress-wrap"><div class="sell-progress-track"><div class="sell-progress-fill" id="sellProgressFill" style="width:33%"></div></div><div class="sell-steps-bar" id="sellStepsBar"></div></div>
+  <div class="sell-layout"><div class="sell-card" id="sellFormCard"></div><aside class="sell-preview-card" id="sellPreviewCard"></aside></div>
+</section>
+
+<section class="page" id="history">
+  <div class="heading"><h1>Riwayat Transaksi &amp; Setoran</h1><p>Catatan booking DP, pesanan, dan setor akun yang tersimpan di browser ini.</p></div>
+  <div class="filter-chips" id="historyChips" style="padding-top:0;margin-bottom:14px">
+    <button class="chip-btn active" onclick="pickHistoryFilter(this,'ALL')">Semua</button>
+    <button class="chip-btn" onclick="pickHistoryFilter(this,'BOOKING')">Booking DP</button>
+    <button class="chip-btn" onclick="pickHistoryFilter(this,'PENJUALAN')">Pesanan</button>
+    <button class="chip-btn" onclick="pickHistoryFilter(this,'SETOR_AKUN')">Setor Akun</button>
+  </div>
+  <div id="historyContent"></div>
+</section>
+
+<section class="page" id="payment">
+  <div class="heading"><h1>Pembayaran</h1><p>Pilihan metode pembayaran yang didukung.</p></div>
+  <div class="info-card"><h3>Metode bayar</h3><div class="info-list">
+    <div class="info-row"><i class="fi fi-sr-wallet"></i><div><strong>DANA</strong><p>Pastikan nomor tujuan sesuai konfirmasi admin sebelum transfer.</p></div></div>
+    <div class="info-row"><i class="fi fi-sr-mobile"></i><div><strong>GoPay</strong><p>Simpan bukti transfer setelah pembayaran selesai.</p></div></div>
+    <div class="info-row"><i class="fi fi-sr-phone-call"></i><div><strong>Pulsa</strong><p>Tanyakan nomor tujuan, rate, dan biaya admin dulu ke admin.</p></div></div>
+  </div></div>
+</section>
+
+<section class="page" id="dp">
+  <div class="heading"><h1>Aturan DP &amp; Booking</h1><p>Ketentuan singkat sebelum booking akun.</p></div>
+  <div class="info-card"><h3>Ketentuan DP &amp; Booking</h3><div class="info-list">
+    <div class="info-row"><i class="fi fi-sr-check-circle"></i><div><strong>01 · Minimal DP 50%</strong><p>DP minimal setengah dari harga akun agar akun di-keep dulu.</p></div></div>
+    <div class="info-row"><i class="fi fi-sr-check-circle"></i><div><strong>02 · Data Akun</strong><p>Data login diberikan setelah pelunasan sesuai kesepakatan.</p></div></div>
+    <div class="info-row"><i class="fi fi-sr-check-circle"></i><div><strong>03 · Batas Waktu 7 Hari</strong><p>Pelunasan maksimal 7 hari sejak tanggal booking dicatat.</p></div></div>
+  </div></div>
+</section>
+
+<section class="page" id="settings">
+  <div class="heading"><h1>Pengaturan</h1><p>Sesuaikan tampilan dan data lokal di perangkat ini.</p></div>
+  <div class="setting-row"><div class="setting-left"><div class="setting-icon"><i class="fi fi-sr-moon"></i></div><div><strong>Mode Gelap</strong><small>Ubah ke tema gelap</small></div></div><input class="switch" id="darkSwitch" type="checkbox" onchange="setTheme(this.checked)"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+    <button class="button-secondary" onclick="resetSettings()">Reset pengaturan</button>
+    <button class="button-secondary" onclick="clearHistoryLogs()">Hapus riwayat lokal</button>
+  </div>
+</section>
+
+<section class="page" id="report">
+  <div class="heading"><h1>Lapor Kendala</h1><p>Nemui bug, salah ketik, atau tampilan aneh? Kirim aja ke admin.</p></div>
+  <div class="info-card"><form id="reportForm">
+    <input class="form-field" id="reportName" placeholder="Nama lu (opsional)">
+    <select class="form-field" id="reportType"><option value="Bug website">Bug website</option><option value="Masalah tampilan">Tampilan rusak</option><option value="Informasi keliru">Info salah</option><option value="Saran">Saran</option></select>
+    <textarea class="form-field" id="reportMessage" required placeholder="Tulis detail kendalanya di sini..."></textarea>
+    <button class="button-primary" type="submit" style="margin-top:16px;width:100%"><i class="fi fi-sr-paper-plane"></i>Kirim Laporan</button>
+  </form></div>
+</section>
+</main>
+
+<footer class="footer"><div class="footer-brand">rayan<span>store</span></div><p>Jual beli akun FF santai dan jelas</p><div class="footer-links" id="footerLinks"></div><div class="footer-copy">Rayanstore · RYN-FF</div></footer>
+<nav class="bottom-nav" id="bottomNav"></nav>
+<button class="wa-float" onclick="toggleWhatsApp()" aria-label="WhatsApp"><i class="fi fi-brands-whatsapp"></i></button>
+
+<div class="wa-panel" id="waPanel">
+  <div class="wa-header"><div><strong>Admin Rayanstore</strong><small>Siap bantu cek stok &amp; transaksi</small></div><button onclick="toggleWhatsApp()"><i class="fi fi-sr-cross"></i></button></div>
+  <div class="wa-body"><div class="wa-bubble">Halo, ada yang mau ditanyain soal stok, harga, atau booking? Tulis aja pesannya.</div><textarea id="waMessage" class="wa-input" placeholder="Tulis pesan lu di sini..."></textarea><button class="wa-send" onclick="sendWhatsApp()"><i class="fi fi-brands-whatsapp"></i>Kirim ke WhatsApp</button></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/PASTE_URL_WEB_APP_LU_DI_SINI/exec";
+const STORE_WHATSAPP = "6289603878133";
+
+function makeBannerSvg(title, sub, c1, c2) {
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">' +
+    '<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="' + c1 + '"/><stop offset="100%" stop-color="' + c2 + '"/></linearGradient></defs>' +
+    '<rect width="900" height="520" fill="url(#bg)"/>' +
+    '<rect x="34" y="34" width="832" height="452" rx="24" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>' +
+    '<text x="50%" y="46%" dominant-baseline="middle" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="38" font-weight="800">' + title + '</text>' +
+    '<text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" fill="#E2FBE9" font-family="sans-serif" font-size="18" font-weight="600">' + sub + '</text>' +
+    '</svg>'
+  );
+}
+
+const IMAGE_SOURCES = {
+  logo: {
+    url: "https://lh3.googleusercontent.com/d/1FRT4U_C4x4MYwIwFzU9la1coAJjWEELK"
+  },
+  readyA1: {
+    url: "https://lh3.googleusercontent.com/d/1y4txMcni6MEOUdFNtf-azi3GyP2jBotr=w2000",
+    fallback: makeBannerSvg("STOK READY A1", "Google · TW Kos · Evo & Bundle", "#0C3A1D", "#16A34A")
+  },
+  comingSoon: {
+    url: "https://lh3.googleusercontent.com/d/1ylb8Zlleu6EskTZU5k8-JTIT_Plk6pnA",
+    fallback: makeBannerSvg("COMING SOON", "Akun Berikutnya Sedang Disiapkan", "#3A2306", "#B45309")
+  },
+  sold01: {
+    url: "https://lh3.googleusercontent.com/d/1CrRllTp-ajZA0bXLMSeGzcuplw2gCvst",
+    fallback: makeBannerSvg("SOLD OUT · SLOT 01", "STOK A1 LAMA // OUT-01", "#18241C", "#3B4C41")
+  },
+  sold02: {
+    url: "https://lh3.googleusercontent.com/d/1wwpAEjdVTwA8fj87qSc2kB9ymZtHJ_Ni",
+    fallback: makeBannerSvg("SOLD OUT · SLOT 02", "GDG-FF-091 // OUT-02", "#18241C", "#3B4C41")
+  },
+  sold03: {
+    url: "https://lh3.googleusercontent.com/d/11XRtx1Akh8cBNbIgrNkBrJ0OMnZ72YdT",
+    fallback: makeBannerSvg("SOLD OUT · SLOT 03", "GDG-FF-092 // OUT-03", "#18241C", "#3B4C41")
+  }
+};
+
+function handleImgError(img, kind, key) {
+  if (!img) return;
+  const srcObj = key && IMAGE_SOURCES[key] ? IMAGE_SOURCES[key] : null;
+  if (srcObj && srcObj.fallback && !img.dataset.fallbackApplied) {
+    img.dataset.fallbackApplied = "1";
+    img.src = srcObj.fallback;
+    return;
+  }
+  if (kind === "logo" || kind === "hero") {
+    img.style.display = "none";
+    if (img.parentElement && !img.parentElement.querySelector(".fallback-console-icon")) {
+      const icon = document.createElement("i");
+      icon.className = "fi fi-sr-gamepad fallback-console-icon";
+      img.parentElement.appendChild(icon);
+    }
+    return;
+  }
+  if (!img.dataset.svgApplied) {
+    img.dataset.svgApplied = "1";
+    img.src = makeBannerSvg("RAYANSTORE FF", "Preview Stok & Koleksi Akun", "#0C3A1D", "#16A34A");
+  }
+}
+
+function hydrateStaticImages() {
+  const logoTargets = ["topLogoImg", "drawerLogoImg", "heroLogoImg"];
+  logoTargets.forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) el.src = IMAGE_SOURCES.logo.url;
+  });
+
+  const soldData = [
+    { key: "sold01", tag: "SOLD OUT · SLOT 01", title: "STOK A1 LAMA // OUT-01" },
+    { key: "sold02", tag: "SOLD OUT · SLOT 02", title: "GDG-FF-091 // OUT-02" },
+    { key: "sold03", tag: "SOLD OUT · SLOT 03", title: "GDG-FF-092 // OUT-03" }
+  ];
+  const soldGrid = document.getElementById("soldGrid");
+  if (soldGrid) {
+    soldGrid.innerHTML = soldData.map(function(item) {
+      const src = IMAGE_SOURCES[item.key];
+      return '<article class="sold-card"><img class="sold-img" src="' + src.url + '" alt="' + item.title + '" referrerpolicy="no-referrer" onload="this.dataset.loaded=\'1\'" onerror="handleImgError(this,\'card\',\'' + item.key + '\')"><div class="sold-body"><span class="sold-tag">' + item.tag + '</span><h3>' + item.title + '</h3></div></article>';
+    }).join("");
+  }
+}
+
+const MAX_CART = 5;
+const MIN_OFFER_FLOOR = 80000;
+const MAX_BUDGET_CAP = 300000;
+
+const accounts = [
+  {
+    id: 1,
+    name: "Stok Ready A1",
+    price: 297000,
+    priceOld: 300000,
+    status: "available",
+    description: "Login Google, bind TW kos. Bundle Sakura Clubber, Bundle Legendaris Trap & Scorpio, Bundle Saitama & Tinju OPM. Senjata: MP40 Cobra, SCAR Megalodon Max, SG Reaper, dan SG Lumut.",
+    images: [{ key: "readyA1", url: IMAGE_SOURCES.readyA1.url }],
+    specs: {
+      login: "Google",
+      bind: "TW Kos"
+    },
+    weapons: [
+      {
+        name: "MP40 Cobra",
+        fullName: "MP40 - Predatory Cobra",
+        type: "SMG",
+        level: "Evo Gun",
+        theme: "cobra",
+        icon: "fi-sr-bolt",
+        attributes: [
+          { label: "Damage", type: "plus", value: "++" },
+          { label: "Rate of Fire", type: "plus", value: "+" },
+          { label: "Reload Speed", type: "minus", value: "–" }
+        ]
+      },
+      {
+        name: "SCAR Megalodon Max",
+        fullName: "SCAR - Megalodon Alpha (Lv. 7)",
+        type: "Assault Rifle",
+        level: "Evo Gun Max",
+        theme: "scar",
+        icon: "fi-sr-crosshairs",
+        attributes: [
+          { label: "Rate of Fire", type: "plus", value: "++" },
+          { label: "Damage", type: "plus", value: "+" },
+          { label: "Reload Speed", type: "minus", value: "–" }
+        ]
+      },
+      {
+        name: "SG Reaper",
+        fullName: "M1887 - Rapper Underworld",
+        type: "Shotgun",
+        level: "SG2 Reaper",
+        theme: "cyclone",
+        icon: "fi-sr-flame",
+        attributes: [
+          { label: "Rate of Fire", type: "plus", value: "++" },
+          { label: "Reload Speed", type: "plus", value: "+" },
+          { label: "Accuracy", type: "minus", value: "–" }
+        ]
+      },
+      {
+        name: "SG Lumut",
+        fullName: "M1887 - Tropical Parrot",
+        type: "Shotgun",
+        level: "SG2 Lumut",
+        theme: "lumut",
+        icon: "fi-sr-leaf",
+        attributes: [
+          { label: "Damage (+2)", type: "plus", value: "++" },
+          { label: "Reload Speed (+1)", type: "plus", value: "+" },
+          { label: "Movement Speed (-1)", type: "minus", value: "–" }
+        ]
+      }
+    ],
+    bundlesList: [
+      {
+        name: "Bundle Sakura Clubber",
+        subtitle: "Nuansa ungu & pink sakura",
+        theme: "sakura",
+        icon: "fi-sr-sparkles",
+        badge: "SAKURA",
+        items: ["Sakura Clubber"]
+      },
+      {
+        name: "Bundle Legendaris Trap",
+        subtitle: "Nuansa ungu DJ",
+        theme: "trap",
+        icon: "fi-sr-crown",
+        badge: "LEGEND · DJ",
+        items: ["Trap Bundle"]
+      },
+      {
+        name: "Bundle Legendaris Scorpio",
+        subtitle: "Merah tua darah & merah biasa",
+        theme: "scorpio",
+        icon: "fi-sr-flame",
+        badge: "LEGEND",
+        items: ["Scorpio Bundle"]
+      },
+      {
+        name: "Bundle Saitama & Tinju OPM",
+        subtitle: "Nuansa kuning & oranye",
+        theme: "opm",
+        icon: "fi-sr-star",
+        badge: "ONE PUNCH MAN",
+        items: ["Bundle Saitama", "Tinju OPM"]
+      }
+    ]
+  },
+  { id: 2, name: "Slot Coming Soon #1", price: 0, priceOld: 0, status: "coming_soon", description: "Stok baru lagi disiapin. Tunggu update berikutnya ya.", images: [{ key: "comingSoon", url: IMAGE_SOURCES.comingSoon.url }], specs: {}, weapons: [], bundlesList: [] },
+  { id: 3, name: "Slot Coming Soon #2", price: 0, priceOld: 0, status: "coming_soon", description: "Stok baru lagi disiapin. Tunggu update berikutnya ya.", images: [{ key: "comingSoon", url: IMAGE_SOURCES.comingSoon.url }], specs: {}, weapons: [], bundlesList: [] }
+];
+
+function getAccountFirstImage(a) {
+  const first = a && a.images && a.images[0];
+  if (!first) return { key: "", url: IMAGE_SOURCES.readyA1.fallback };
+  if (typeof first === "string") return { key: "", url: first };
+  return { key: first.key || "", url: first.url || IMAGE_SOURCES.readyA1.fallback };
+}
+
+let historyStack = [], currentPage = "home", currentAccount = null, galleryIndex = 0, homeQuery = "", catalogQuery = "", selectedPayMethod = "DANA", cartSelected = {}, checkoutAccounts = [], sellStep = 1, historyFilter = "ALL";
+let sellForm = { nama: "", uid: "", level: "", rank: "Heroic", skinMeta: [], bind: "Google", aman: "Lengkap", harga: "", sellerName: "", sellerWA: "", catatan: "" };
+
+const META_TIERS = {
+  "SG Evo / SG OPM": { score: 85, tier: "TOP" },
+  "Senjata Evo Lain": { score: 65, tier: "EVO" },
+  "SG2 Rapper Underworld": { score: 50, tier: "META" },
+  "SG2 Incubator": { score: 45, tier: "META" },
+  "Bundle Collab": { score: 35, tier: "COLLAB" },
+  "Skin Lain (Non-List)": { score: 0, tier: "LOW" }
+};
+
+function computeOfferRange(form) {
+  const items = Array.isArray(form.skinMeta) ? form.skinMeta : [];
+  let score = 0;
+  let hasSgEvoOrOpm = false;
+  let hasAnyEvo = false;
+
+  items.forEach(function(item) {
+    const t = META_TIERS[item] || { score: 0 };
+    score += t.score;
+    if (item === "SG Evo / SG OPM") hasSgEvoOrOpm = true;
+    if (item === "SG Evo / SG OPM" || item === "Senjata Evo Lain") hasAnyEvo = true;
+  });
+
+  const lv = Number(form.level || 0);
+  if (lv >= 65) score += 15;
+  else if (lv >= 55) score += 8;
+
+  if (form.rank === "Grandmaster") score += 15;
+  else if (form.rank === "Master") score += 10;
+  else if (form.rank === "Heroic") score += 5;
+
+  let safeAdj = 0;
+  if (form.aman === "Lengkap") safeAdj = 15;
+  else if (form.aman === "Tidak Lengkap") safeAdj = -10;
+  else if (form.aman === "Bind Mati") safeAdj = -25;
+
+  score = Math.max(0, Math.min(100, score + safeAdj));
+
+  let minVal = MIN_OFFER_FLOOR;
+  let maxVal = 120000;
+  let label = "Spek Rendah / Non-List";
+
+  if (hasSgEvoOrOpm || score >= 75) {
+    minVal = 215000 + Math.round((Math.max(0, score - 75) / 25) * 25000);
+    maxVal = 275000 + Math.round((Math.max(0, score - 75) / 25) * 25000);
+    label = "Tier SG Evo / SG OPM";
+  } else if (hasAnyEvo || score >= 50) {
+    minVal = 185000 + Math.round(((score - 50) / 25) * 25000);
+    maxVal = 240000 + Math.round(((score - 50) / 25) * 30000);
+    label = "Tier Senjata Evo / Meta";
+  } else if (score >= 25) {
+    minVal = 125000 + Math.round(((score - 25) / 25) * 40000);
+    maxVal = 175000 + Math.round(((score - 25) / 25) * 35000);
+    label = "Tier Menengah";
+  } else {
+    minVal = MIN_OFFER_FLOOR;
+    maxVal = 115000 + Math.round((score / 25) * 20000);
+    label = items.length ? "Tier Non-List / Rendah" : "Spek Dasar / Non-List";
+  }
+
+  minVal = Math.max(MIN_OFFER_FLOOR, Math.min(MAX_BUDGET_CAP - 15000, Math.round(minVal / 5000) * 5000));
+  maxVal = Math.max(minVal + 15000, Math.min(MAX_BUDGET_CAP, Math.round(maxVal / 5000) * 5000));
+  const midVal = Math.min(MAX_BUDGET_CAP, Math.max(minVal, Math.round(((minVal + maxVal) / 2) / 5000) * 5000));
+
+  return { min: minVal, max: maxVal, mid: midVal, label: label, text: formatPrice(minVal) + " - " + formatPrice(maxVal) };
+}
+
+async function sendToGoogleSheets(payload) {
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.indexOf("PASTE_URL_WEB_APP") !== -1) return false;
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+    return true;
+  } catch (e) { return false; }
+}
+
+function getHistoryLogs() { try { return JSON.parse(localStorage.getItem("rayanHistory") || "[]"); } catch (e) { return []; } }
+function addHistoryLog(entry) {
+  const logs = getHistoryLogs();
+  logs.unshift(entry);
+  localStorage.setItem("rayanHistory", JSON.stringify(logs.slice(0, 50)));
+}
+function clearHistoryLogs() {
+  localStorage.removeItem("rayanHistory");
+  showToast("Riwayat lokal dihapus.");
+  if (currentPage === "history") renderHistoryPage();
+}
+
+function formatPrice(p) { return "Rp " + Number(p || 0).toLocaleString("id-ID"); }
+function getBookedIds() { try { return JSON.parse(localStorage.getItem("rayanBooked") || "[]"); } catch (e) { return []; } }
+function markAsBooked(id) { const l = getBookedIds(); if (l.indexOf(id) === -1) { l.push(id); localStorage.setItem("rayanBooked", JSON.stringify(l)); } }
+function isAccountBooked(id) { return getBookedIds().indexOf(id) !== -1; }
+function getCart() { try { return JSON.parse(localStorage.getItem("rayanCart") || "[]"); } catch (e) { return []; } }
+function saveCart(c) { localStorage.setItem("rayanCart", JSON.stringify(c)); updateCartBadge(); }
+function isInCart(id) { return getCart().some(function(x) { return x.accountId === id; }); }
+function updateCartBadge() {
+  const c = getCart(), b = document.getElementById("cartBadge");
+  if (!b) return;
+  b.style.display = c.length > 0 ? "grid" : "none";
+  b.textContent = String(c.length);
+}
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  if (!t) return;
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(function() { t.classList.remove("show"); }, 2600);
+}
+function closeDrawer() { document.getElementById("drawer").classList.remove("show"); document.getElementById("overlay").classList.remove("show"); }
+function openDrawer() { document.getElementById("drawer").classList.add("show"); document.getElementById("overlay").classList.add("show"); }
+
+const pageMenus = {
+  mainMenu: [["home", "Home", "fi-sr-home"], ["catalog", "Katalog", "fi-sr-shopping-bag"], ["sell", "Jual / Setor Akun", "fi-sr-handshake"], ["history", "Riwayat", "fi-sr-time-past"], ["soldout", "Sold Out", "fi-sr-box"]],
+  storeMenu: [["payment", "Pembayaran", "fi-sr-wallet"], ["dp", "Aturan DP & Booking", "fi-sr-document"]],
+  prefMenu: [["settings", "Pengaturan", "fi-sr-settings"], ["report", "Lapor", "fi-sr-flag"]]
+};
+function makeMenu(id) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = pageMenus[id].map(function(m) { return '<button class="drawer-item" onclick="showPage(\'' + m[0] + '\')"><i class="fi ' + m[2] + '"></i><span>' + m[1] + '</span></button>'; }).join("");
+}
+
+function buildStatic() {
+  makeMenu("mainMenu"); makeMenu("storeMenu"); makeMenu("prefMenu");
+  hydrateStaticImages();
+
+  const benefits = [
+    {
+      icon: "fi-sr-eye",
+      title: "Spek & Foto Apa Adanya",
+      paras: [
+        "Info login, bind, bundle, dan senjata ditulis jelas sebelum lu mutusin.",
+        "Kalau masih ragu soal bagian tertentu, tinggal tanya admin aja."
+      ]
+    },
+    {
+      icon: "fi-sr-bookmark",
+      title: "Bisa Booking Pakai DP 50%",
+      paras: [
+        "Belum pas gajian atau dana belum cair? Bisa di-keep dulu pakai DP minimal 50%.",
+        "Pelunasan maksimal 7 hari sesuai kesepakatan."
+      ]
+    },
+    {
+      icon: "fi-sr-comments",
+      title: "Ngobrol Langsung ke Admin",
+      paras: [
+        "Tanya stok, nego wajar, atau konfirmasi pembayaran bisa langsung ke WhatsApp.",
+        "Tidak perlu lewat proses yang ribet."
+      ]
+    },
+    {
+      icon: "fi-sr-receipt",
+      title: "Struk & Riwayat Tersimpan",
+      paras: [
+        "Tiap transaksi atau booking bikin struk yang bisa disimpan jadi gambar.",
+        "Riwayatnya juga bisa dicek lagi kapan aja di menu Riwayat."
+      ]
+    }
+  ];
+  document.getElementById("benefits").innerHTML = benefits.map(function(b) {
+    return '<div class="benefit"><div class="benefit-icon"><i class="fi ' + b.icon + '"></i></div><div><h3>' + b.title + '</h3>' + b.paras.map(function(p) { return '<p>' + p + '</p>'; }).join("") + '</div></div>';
+  }).join("");
+
+  const steps = [
+    ["Pilih Akun", "Cek dulu spek akun yang cocok di katalog.", "fi-sr-search"],
+    ["Beli atau Booking", "Pilih beli langsung atau booking DP minimal 50%.", "fi-sr-bookmark"],
+    ["Simpan Struk", "Isi data singkat lalu simpan struknya.", "fi-sr-receipt"],
+    ["Konfirmasi WA", "Kirim struk ke admin buat lanjut proses pembayaran.", "fi-brands-whatsapp"]
+  ];
+  document.getElementById("steps").innerHTML = steps.map(function(s, i) {
+    return '<div class="step"><div class="step-top"><div class="step-num">0' + (i + 1) + '</div><i class="fi ' + s[2] + ' step-icon"></i></div><h4>' + s[0] + '</h4><p>' + s[1] + '</p></div>';
+  }).join("");
+
+  document.getElementById("footerLinks").innerHTML = [["payment", "Pembayaran"], ["dp", "Aturan DP"], ["history", "Riwayat"], ["soldout", "Sold Out"], ["report", "Lapor"]].map(function(f) { return '<button onclick="showPage(\'' + f[0] + '\')">' + f[1] + '</button>'; }).join("");
+  document.getElementById("bottomNav").innerHTML = [["home", "Home", "fi-sr-home"], ["catalog", "Katalog", "fi-sr-shopping-bag"], ["sell", "Setor", "fi-sr-handshake"], ["history", "Riwayat", "fi-sr-time-past"]].map(function(n) {
+    return '<button class="nav-item ' + (n[0] === "home" ? "active" : "") + '" onclick="showPage(\'' + n[0] + '\',this)"><i class="fi ' + n[2] + '"></i><span>' + n[1] + '</span></button>';
+  }).join("");
+  updateCartBadge();
+}
+
+function showPage(id, btn, keep) {
+  const target = document.getElementById(id);
+  if (!target) return;
+  if (!keep && currentPage !== id) historyStack.push(currentPage);
+  document.querySelectorAll(".page").forEach(function(p) { p.classList.remove("active"); });
+  target.classList.add("active");
+  currentPage = id;
+  document.querySelectorAll(".nav-item").forEach(function(n) { n.classList.remove("active"); });
+  if (btn) btn.classList.add("active");
+  else { const nav = document.querySelector('.nav-item[onclick*="\'' + id + '\'"]'); if (nav) nav.classList.add("active"); }
+  closeDrawer();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (id === "sell") renderSellPage();
+  if (id === "cart") renderCart();
+  if (id === "checkout") renderCheckout();
+  if (id === "history") renderHistoryPage();
+}
+function goBack() { showPage(historyStack.pop() || "catalog", null, true); }
+
+function getSearchText(a) {
+  const s = a.specs || {};
+  const w = (a.weapons || []).map(function(x) { return [x.name, x.fullName || "", x.type, x.level].join(" "); }).join(" ");
+  const b = (a.bundlesList || []).map(function(x) { return [x.name, x.subtitle || "", (x.items || []).join(" ")].join(" "); }).join(" ");
+  return [a.name, a.description || "", s.login || "", s.bind || "", w, b].join(" ").toLowerCase();
+}
+function filterAccounts(q, status) {
+  const query = (q || "").toLowerCase().trim();
+  return accounts.filter(function(a) { return a.status === (status || "available") && (!query || getSearchText(a).indexOf(query) !== -1); });
+}
+function pickHomeChip(btn, kw) {
+  document.querySelectorAll("#homeChips .chip-btn").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+  document.getElementById("homeSearch").value = kw;
+  searchFromHome(kw);
+}
+function searchFromHome(q) { homeQuery = q; renderHomeGrid(); }
+function searchCatalog(q) { catalogQuery = q; renderCatalogGrid(); }
+
+function createCard(a) {
+  const isComing = a.status === "coming_soon", booked = isAccountBooked(a.id), card = document.createElement("article");
+  card.className = "product-card" + (isComing ? " coming-soon" : "");
+  const priceHtml = isComing ? '<strong class="product-price">Coming Soon</strong>' : '<div class="product-price-wrap">' + (a.priceOld ? '<span class="product-price-old">' + formatPrice(a.priceOld) + '</span>' : '') + '<strong class="product-price">' + formatPrice(a.price) + '</strong></div>';
+  const labelHtml = isComing ? '<span class="stock-label coming">SOON</span>' : (booked ? '<span class="stock-label booked">BOOKED</span>' : '<span class="stock-label">READY</span>');
+  const pills = (!isComing && a.specs) ? '<div class="spec-pills">' + (a.specs.login ? '<span class="spec-pill">Login ' + a.specs.login + '</span>' : '') + (a.specs.bind ? '<span class="spec-pill">Bind ' + a.specs.bind + '</span>' : '') + '</div>' : '';
+  const imgObj = getAccountFirstImage(a);
+  card.innerHTML = '<div class="product-image"><img src="' + imgObj.url + '" alt="' + a.name + '" referrerpolicy="no-referrer" onload="this.dataset.loaded=\'1\'" onerror="handleImgError(this,\'card\',\'' + imgObj.key + '\')">' + labelHtml + pills + '</div><div class="product-info"><h3>' + a.name + '</h3><p>' + (a.description || "Free Fire Account") + '</p><div class="product-bottom">' + priceHtml + '<div class="product-actions-mini">' + (!isComing ? '<button class="mini-book-btn" type="button" onclick="event.stopPropagation();openBookingModal(' + a.id + ')">Booking</button>' : '') + '<span class="product-arrow"><i class="fi fi-sr-arrow-up-right"></i></span></div></div></div>';
+  if (!isComing) card.onclick = function() { openAccount(a.id); };
+  return card;
+}
+function renderHomeGrid() {
+  const g = document.getElementById("homeGrid"), res = filterAccounts(homeQuery, "available");
+  g.innerHTML = res.length ? "" : '<div class="empty"><i class="fi fi-sr-search"></i><h3>Akun gak ketemu.</h3><p>Coba kata kunci atau filter lain.</p></div>';
+  res.forEach(function(a) { g.appendChild(createCard(a)); });
+}
+function renderCatalogGrid() {
+  const g = document.getElementById("catalogGrid"), res = filterAccounts(catalogQuery, "available");
+  g.innerHTML = ""; res.forEach(function(a) { g.appendChild(createCard(a)); });
+  if (!res.length) g.innerHTML = '<div class="empty"><i class="fi fi-sr-search"></i><h3>Akun gak ketemu.</h3><p>Coba kata kunci lain.</p></div>';
+  document.getElementById("resultCount").textContent = res.length + " unit";
+  const coming = filterAccounts(catalogQuery, "coming_soon"), sec = document.getElementById("comingSoonSection"), cg = document.getElementById("comingSoonGrid");
+  if (coming.length && !catalogQuery.trim()) { sec.style.display = "block"; cg.innerHTML = ""; coming.forEach(function(a) { cg.appendChild(createCard(a)); }); }
+  else sec.style.display = "none";
+}
+function renderAll() { renderHomeGrid(); renderCatalogGrid(); updateCartBadge(); }
+
+function openAccount(id) {
+  const a = accounts.find(function(x) { return x.id === id; });
+  if (!a || a.status === "coming_soon") return;
+  currentAccount = a; galleryIndex = 0;
+  const s = a.specs || {}, w = a.weapons || [], b = a.bundlesList || [], inCart = isInCart(id), booked = isAccountBooked(id);
+  const imgs = (a.images && a.images.length) ? a.images.map(function(it) {
+    return typeof it === "string" ? { key: "", url: it } : it;
+  }) : [{ key: "", url: IMAGE_SOURCES.readyA1.fallback }];
+  const specRows = [
+    ["Login", s.login],
+    ["Bind", s.bind]
+  ];
+  document.getElementById("detailContent").innerHTML =
+    '<div class="detail-gallery"><div class="gallery-track" id="galleryTrack">' + imgs.map(function(i) { return '<img src="' + i.url + '" alt="' + a.name + '" referrerpolicy="no-referrer" onload="this.dataset.loaded=\'1\'" onerror="handleImgError(this,\'card\',\'' + i.key + '\')">'; }).join("") + '</div><button class="gallery-arrow prev" onclick="moveGallery(-1)"><i class="fi fi-sr-angle-left"></i></button><button class="gallery-arrow next" onclick="moveGallery(1)"><i class="fi fi-sr-angle-right"></i></button><div class="gallery-counter" id="galleryCounter">1/' + imgs.length + '</div></div>' +
+    '<div class="gallery-dots">' + imgs.map(function(_, i) { return '<button class="gallery-dot ' + (i === 0 ? "active" : "") + '" onclick="goGallery(' + i + ')"></button>'; }).join("") + '</div>' +
+    '<div class="detail-top"><div><span class="detail-badge">' + (booked ? "SUDAH DIBOOKING (CEK ADMIN)" : "READY STOCK") + '</span><h1>' + a.name + '</h1><p class="detail-sub">Free Fire Account</p></div><div class="detail-price-wrap">' + (a.priceOld ? '<span class="detail-price-old">' + formatPrice(a.priceOld) + '</span>' : '') + '<span class="detail-price">' + formatPrice(a.price) + '</span></div></div>' +
+    '<div class="detail-cta-grid"><button class="button-secondary" onclick="addToCart(' + id + ')" ' + (inCart ? "disabled" : "") + '><i class="fi ' + (inCart ? "fi-sr-check" : "fi-sr-shopping-cart") + '"></i>' + (inCart ? "Di Keranjang" : "Keranjang") + '</button><button class="button-booking" onclick="openBookingModal(' + id + ')"><i class="fi fi-sr-bookmark"></i>Booking (DP)</button><button class="button-primary" onclick="buyNow(' + id + ')"><i class="fi fi-sr-flash"></i>Beli Langsung</button></div>' +
+    '<div class="detail-block"><div class="detail-block-title"><h2>Spek Akun</h2></div><div class="detail-specs">' + specRows.map(function(x) { return '<div class="spec"><span>' + x[0] + '</span><strong>' + (x[1] || "-") + '</strong></div>'; }).join("") + '</div></div>' +
+    '<div class="detail-block"><div class="detail-block-title"><h2>Deskripsi</h2></div><div class="info-card"><p>' + (a.description || "-") + '</p></div></div>' +
+    '<div class="detail-block"><div class="detail-block-title"><h2>Koleksi Senjata</h2><span>' + w.length + ' senjata</span></div><div class="weapon-grid">' + w.map(function(x) { return '<div class="weapon-card theme-' + (x.theme || "cobra") + '"><div class="weapon-card-inner"><div class="weapon-icon-wrap"><i class="fi ' + (x.icon || "fi-sr-crosshairs") + '"></i></div><span class="weapon-badge">' + (x.type || "Weapon") + ' · ' + (x.level || "-") + '</span><div class="weapon-title">' + x.name + '</div><div class="weapon-fullname">' + (x.fullName || "") + '</div><div class="weapon-attrs">' + (x.attributes || []).map(function(at) { return '<div class="weapon-attr"><span>' + at.label + '</span><span class="attr-val ' + at.type + '">' + at.value + '</span></div>'; }).join("") + '</div></div></div>'; }).join("") + '</div></div>' +
+    '<div class="detail-block"><div class="detail-block-title"><h2>Koleksi Bundle</h2><span>' + b.length + ' bundle</span></div><div class="bundle-grid">' + b.map(function(x) { return '<div class="bundle-card theme-' + (x.theme || "sakura") + '"><div class="bundle-card-inner"><div class="bundle-icon-wrap"><i class="fi ' + (x.icon || "fi-sr-gift") + '"></i></div><span class="bundle-badge">' + (x.badge || "BUNDLE") + '</span><div class="bundle-title">' + x.name + '</div><div class="bundle-subtitle">' + (x.subtitle || "") + '</div><div class="bundle-items">' + (x.items || []).map(function(it) { return '<span class="bundle-item-chip">' + it + '</span>'; }).join("") + '</div></div></div>'; }).join("") + '</div></div>';
+  showPage("accountDetail"); updateGallery();
+}
+function moveGallery(d) { if (!currentAccount || !currentAccount.images.length) return; const t = currentAccount.images.length; galleryIndex = (galleryIndex + d + t) % t; updateGallery(); }
+function goGallery(i) { galleryIndex = i; updateGallery(); }
+function updateGallery() {
+  const tr = document.getElementById("galleryTrack"); if (!tr || !currentAccount) return;
+  tr.style.transform = "translateX(-" + (galleryIndex * 100) + "%)";
+  document.getElementById("galleryCounter").textContent = (galleryIndex + 1) + "/" + currentAccount.images.length;
+  document.querySelectorAll(".gallery-dot").forEach(function(dot, i) { dot.classList.toggle("active", i === galleryIndex); });
+}
+
+function openBookingModal(id) {
+  const acc = accounts.find(function(a) { return a.id === id; }); if (!acc) return;
+  const minDP = Math.ceil(acc.price * 0.5), ov = document.createElement("div");
+  ov.className = "modal-overlay";
+  ov.innerHTML = '<div class="modal-card"><div class="modal-head"><h3><i class="fi fi-sr-bookmark"></i>Booking Akun</h3><button class="modal-close" onclick="this.closest(\'.modal-overlay\').remove()"><i class="fi fi-sr-cross"></i></button></div><div class="book-acc-preview"><div><strong>' + acc.name + '</strong><small style="color:var(--muted)">Minimal DP 50%: ' + formatPrice(minDP) + '</small></div><span>' + formatPrice(acc.price) + '</span></div><label class="form-label">Nama Lengkap *</label><input class="form-field" id="bookName" placeholder="Nama lu"><label class="form-label">Nomor WhatsApp *</label><input class="form-field" id="bookWA" inputmode="numeric" placeholder="08xxxxxxxxxx"><label class="form-label">Nominal DP (Min. ' + formatPrice(minDP) + ') *</label><input class="form-field" id="bookDP" type="number" value="' + minDP + '"><label class="form-label">Rencana Tanggal Pelunasan *</label><input class="form-field" id="bookDate" type="date"><label class="form-label">Catatan (opsional)</label><input class="form-field" id="bookNote" placeholder="Contoh: Lunasin hari Jumat"><div class="modal-actions"><button class="button-secondary" type="button" onclick="this.closest(\'.modal-overlay\').remove()">Batal</button><button class="button-primary" id="btnSubmitBooking" type="button" onclick="submitBooking(' + id + ')">Catat Booking</button></div></div>';
+  document.body.appendChild(ov);
+}
+
+async function submitBooking(id) {
+  const acc = accounts.find(function(a) { return a.id === id; }); if (!acc) return;
+  const nama = document.getElementById("bookName").value.trim(), wa = document.getElementById("bookWA").value.trim(), dp = Number(document.getElementById("bookDP").value || 0), estimasi = document.getElementById("bookDate").value, catatan = document.getElementById("bookNote").value.trim(), minDP = Math.ceil(acc.price * 0.5);
+  if (nama.length < 3 || wa.replace(/\D/g, "").length < 9) { showToast("Lengkapi nama & nomor WhatsApp aktif."); return; }
+  if (dp < minDP) { showToast("Minimal DP adalah " + formatPrice(minDP) + "."); return; }
+  if (!estimasi) { showToast("Pilih rencana tanggal pelunasan."); return; }
+  const btn = document.getElementById("btnSubmitBooking"); btn.disabled = true; btn.textContent = "Menyimpan...";
+  const code = "BK-" + Math.random().toString(36).slice(2, 7).toUpperCase(), dateNow = new Date().toLocaleString("id-ID", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  const payload = { type: "BOOKING", kode: code, nama: nama, wa: wa, akun: acc.name, harga: acc.price, dp: dp, estimasi: estimasi, catatan: catatan };
+  await sendToGoogleSheets(payload);
+  addHistoryLog({ type: "BOOKING", code: code, date: dateNow, title: acc.name, meta: nama + " · Est. Lunas " + estimasi, amount: dp, waText: ["RAYANSTORE - KONFIRMASI BOOKING AKUN", "Kode Booking: " + code, "Nama: " + nama, "WA: " + wa, "Akun: " + acc.name + " (" + formatPrice(acc.price) + ")", "Nominal DP: " + formatPrice(dp), "Estimasi Lunas: " + estimasi, "Catatan: " + (catatan || "-")].join("\n") });
+  markAsBooked(id); renderAll();
+  const modal = document.querySelector(".modal-overlay"); if (modal) modal.remove();
+  const waUrl = "https://wa.me/" + (STORE_WHATSAPP.replace(/\D/g, "") || "6280000000000") + "?text=" + encodeURIComponent(getHistoryLogs()[0].waText);
+  const ov = document.createElement("div"); ov.className = "struk-overlay";
+  ov.innerHTML = '<div class="struk-wrap" id="bookingCapture"><div class="struk-head booking-theme"><div class="struk-brand">rayan<span>store</span></div><h3>BUKTI BOOKING AKUN</h3></div><div class="struk-body"><div class="struk-row"><span class="label">Kode</span><span class="value">' + code + '</span></div><div class="struk-row"><span class="label">Tanggal</span><span class="value">' + dateNow + '</span></div><div class="struk-row"><span class="label">Pembooking</span><span class="value">' + nama + '</span></div><div class="struk-row"><span class="label">WhatsApp</span><span class="value">' + wa + '</span></div><div class="struk-row"><span class="label">Akun</span><span class="value">' + acc.name + '</span></div><div class="struk-row"><span class="label">Est. Lunas</span><span class="value">' + estimasi + '</span></div><div class="struk-total booking-theme"><span class="label">NOMINAL DP</span><span class="value">' + formatPrice(dp) + '</span></div></div><div class="struk-foot" id="strukFoot"><button class="struk-btn save" id="saveBookBtn" onclick="saveStruk(\'bookingCapture\',\'saveBookBtn\')"><i class="fi fi-sr-disk"></i>Simpan Bukti Booking</button><a class="struk-btn wa" href="' + waUrl + '" target="_blank" rel="noopener"><i class="fi fi-brands-whatsapp"></i>Konfirmasi DP ke WA</a><button class="struk-btn close" onclick="this.closest(\'.struk-overlay\').remove()">Tutup</button></div></div>';
+  document.body.appendChild(ov); showToast("Booking tercatat!");
+}
+
+function addToCart(id) {
+  const c = getCart();
+  if (c.length >= MAX_CART) { showToast("Keranjang maksimal " + MAX_CART + " item."); return; }
+  if (c.some(function(x) { return x.accountId === id; })) { showToast("Sudah ada di keranjang."); return; }
+  const acc = accounts.find(function(a) { return a.id === id; }); if (!acc) return;
+  const imgObj = getAccountFirstImage(acc);
+  c.push({ accountId: id, name: acc.name, price: acc.price, image: imgObj.url, imageKey: imgObj.key });
+  saveCart(c); showToast("Ditambahkan ke keranjang."); openAccount(id);
+}
+function removeFromCart(id) { saveCart(getCart().filter(function(x) { return x.accountId !== id; })); delete cartSelected[id]; renderCart(); }
+function toggleCartSelect(id, ch) { if (ch) cartSelected[id] = true; else delete cartSelected[id]; renderCart(); }
+function renderCart() {
+  const content = document.getElementById("cartContent"), cart = getCart();
+  if (!cart.length) { content.innerHTML = '<div class="empty"><i class="fi fi-sr-shopping-cart"></i><h3>Keranjang kosong.</h3><p>Pilih akun dulu di katalog.</p><button class="button-primary" style="margin-top:16px" onclick="showPage(\'catalog\')">Buka Katalog</button></div>'; return; }
+  let total = 0, cnt = 0;
+  cart.forEach(function(i) { if (cartSelected[i.accountId]) { total += i.price; cnt++; } });
+  content.innerHTML = '<div class="cart-list">' + cart.map(function(i) { const imgSrc = i.image || IMAGE_SOURCES.readyA1.fallback; const imgKey = i.imageKey || ""; return '<div class="cart-item"><input type="checkbox" class="cart-check" ' + (cartSelected[i.accountId] ? "checked" : "") + ' onchange="toggleCartSelect(' + i.accountId + ',this.checked)"><img class="cart-img" src="' + imgSrc + '" alt="' + i.name + '" referrerpolicy="no-referrer" onload="this.dataset.loaded=\'1\'" onerror="handleImgError(this,\'card\',\'' + imgKey + '\')"><div class="cart-info"><h4>' + i.name + '</h4><div class="cart-price">' + formatPrice(i.price) + '</div></div><button class="cart-remove" onclick="removeFromCart(' + i.accountId + ')" aria-label="Hapus"><i class="fi fi-sr-trash"></i></button></div>'; }).join("") + '</div><div class="cart-summary"><div class="cart-total-row"><span>Total dipilih (' + cnt + ' item)</span><strong>' + formatPrice(total) + '</strong></div><button class="button-primary" style="width:100%" onclick="goToCheckoutFromCart()" ' + (cnt === 0 ? "disabled" : "") + '>Lanjut Checkout (' + cnt + ')</button></div>';
+}
+function goToCheckoutFromCart() {
+  const sel = getCart().filter(function(i) { return cartSelected[i.accountId]; }); if (!sel.length) return;
+  checkoutAccounts = sel.map(function(i) { return accounts.find(function(a) { return a.id === i.accountId; }); }).filter(Boolean);
+  showPage("checkout");
+}
+function buyNow(id) { const a = accounts.find(function(x) { return x.id === id; }); if (!a) return; checkoutAccounts = [a]; showPage("checkout"); }
+function renderCheckout() {
+  const c = document.getElementById("checkoutContent");
+  if (!checkoutAccounts.length) { c.innerHTML = '<div class="empty"><i class="fi fi-sr-shopping-cart"></i><h3>Belum ada item dipilih.</h3><p>Pilih akun dulu dari katalog atau keranjang.</p></div>'; return; }
+  const total = checkoutAccounts.reduce(function(s, a) { return s + a.price; }, 0);
+  c.innerHTML = '<div class="checkout-section"><h3><i class="fi fi-sr-package"></i>Ringkasan Akun</h3>' + checkoutAccounts.map(function(a) { return '<div class="checkout-list-item"><span class="name">' + a.name + '</span><span class="price">' + formatPrice(a.price) + '</span></div>'; }).join("") + '<div class="checkout-list-item" style="border-top:1px solid var(--border);margin-top:6px;padding-top:10px"><strong>Total</strong><strong style="color:var(--primary)">' + formatPrice(total) + '</strong></div></div><div class="checkout-section"><h3><i class="fi fi-sr-user"></i>Data Pembeli</h3><label class="form-label">Nama Lengkap *</label><input class="form-field" id="buyerName" placeholder="Contoh: Budi Santoso" oninput="validateCheckout()"><div class="form-hint">Minimal 3 karakter</div><label class="form-label">Nomor WhatsApp *</label><input class="form-field" id="buyerWA" placeholder="Contoh: 08123456789" inputmode="numeric" oninput="validateCheckout()"><div class="form-hint">Masukkan nomor WhatsApp aktif</div><label class="form-label">Metode Pembayaran *</label><div class="pay-methods"><button class="pay-method active" type="button" onclick="pickPayMethod(this,\'DANA\')"><i class="fi fi-sr-wallet"></i>DANA</button><button class="pay-method" type="button" onclick="pickPayMethod(this,\'GoPay\')"><i class="fi fi-sr-mobile"></i>GoPay</button><button class="pay-method" type="button" onclick="pickPayMethod(this,\'Pulsa\')"><i class="fi fi-sr-phone-call"></i>Pulsa</button></div></div><button class="button-primary" id="btnBuatPesanan" style="width:100%;padding:16px" onclick="createStruk()" disabled>Buat Struk &amp; Catat Pesanan</button>';
+  selectedPayMethod = "DANA"; validateCheckout();
+}
+function pickPayMethod(btn, m) { selectedPayMethod = m; btn.parentElement.querySelectorAll(".pay-method").forEach(function(b) { b.classList.remove("active"); }); btn.classList.add("active"); }
+function validateCheckout() {
+  const n = document.getElementById("buyerName"), w = document.getElementById("buyerWA"), b = document.getElementById("btnBuatPesanan");
+  if (b && n && w) b.disabled = !(n.value.trim().length >= 3 && w.value.replace(/\D/g, "").length >= 9);
+}
+async function createStruk() {
+  const btn = document.getElementById("btnBuatPesanan"); if (btn) { btn.disabled = true; btn.textContent = "Mencatat Pesanan..."; }
+  const name = document.getElementById("buyerName").value.trim(), wa = document.getElementById("buyerWA").value.trim(), items = checkoutAccounts.slice();
+  const total = items.reduce(function(s, a) { return s + a.price; }, 0), code = "RS-" + Math.random().toString(36).slice(2, 7).toUpperCase();
+  const date = new Date().toLocaleString("id-ID", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }), akunNames = items.map(function(i) { return i.name; }).join(", ");
+  await sendToGoogleSheets({ type: "PENJUALAN", kode: code, nama: name, wa: wa, akun: akunNames, total: total, metode: selectedPayMethod });
+  const waText = ["RAYANSTORE - KONFIRMASI PESANAN", "Kode: " + code, "Nama: " + name, "WA: " + wa, "Metode: " + selectedPayMethod, "Akun: " + items.map(function(i) { return i.name + " (" + formatPrice(i.price) + ")"; }).join(", "), "Total: " + formatPrice(total)].join("\n");
+  addHistoryLog({ type: "PENJUALAN", code: code, date: date, title: akunNames, meta: name + " · " + selectedPayMethod, amount: total, waText: waText });
+  saveCart(getCart().filter(function(c) { return !items.some(function(i) { return i.id === c.accountId; }); }));
+  checkoutAccounts = []; cartSelected = {}; updateCartBadge();
+  const waUrl = "https://wa.me/" + (STORE_WHATSAPP.replace(/\D/g, "") || "6280000000000") + "?text=" + encodeURIComponent(waText);
+  const ov = document.createElement("div"); ov.className = "struk-overlay";
+  ov.innerHTML = '<div class="struk-wrap" id="strukCapture"><div class="struk-head"><div class="struk-brand">rayan<span>store</span></div><h3>STRUK PESANAN</h3></div><div class="struk-body"><div class="struk-row"><span class="label">Kode</span><span class="value">' + code + '</span></div><div class="struk-row"><span class="label">Tanggal</span><span class="value">' + date + '</span></div><div class="struk-row"><span class="label">Pembeli</span><span class="value">' + name + '</span></div><div class="struk-row"><span class="label">WhatsApp</span><span class="value">' + wa + '</span></div><div class="struk-row"><span class="label">Akun</span><span class="value">' + akunNames + '</span></div><div class="struk-row"><span class="label">Metode</span><span class="value">' + selectedPayMethod + '</span></div><div class="struk-total"><span class="label">TOTAL</span><span class="value">' + formatPrice(total) + '</span></div></div><div class="struk-foot" id="strukFoot"><button class="struk-btn save" id="saveStrukBtn" onclick="saveStruk(\'strukCapture\',\'saveStrukBtn\')"><i class="fi fi-sr-disk"></i>Simpan Struk</button><a class="struk-btn wa" href="' + waUrl + '" target="_blank" rel="noopener"><i class="fi fi-brands-whatsapp"></i>Kirim ke WhatsApp</a><button class="struk-btn close" onclick="this.closest(\'.struk-overlay\').remove();showPage(\'catalog\');">Tutup</button></div></div>';
+  document.body.appendChild(ov); showToast("Pesanan tercatat!");
+}
+function saveStruk(cid, bid) {
+  const t = document.getElementById(cid), f = document.getElementById("strukFoot");
+  if (!t || typeof html2canvas === "undefined") { showToast("Screenshot manual dulu."); return; }
+  if (f) f.style.display = "none";
+  html2canvas(t, { scale: 2, backgroundColor: "#ffffff", useCORS: true }).then(function(cv) {
+    if (f) f.style.display = "grid";
+    const a = document.createElement("a"); a.download = "Rayanstore-Struk-" + Date.now() + ".png"; a.href = cv.toDataURL("image/png"); a.click(); showToast("Struk tersimpan.");
+  }).catch(function() { if (f) f.style.display = "grid"; showToast("Gagal menyimpan struk."); });
+}
+
+function applyRangePrice(val) {
+  saveCurrentSellFields();
+  sellForm.harga = String(Math.min(MAX_BUDGET_CAP, Math.max(MIN_OFFER_FLOOR, Number(val || MIN_OFFER_FLOOR))));
+  showToast("Harga harapan diset ke " + formatPrice(sellForm.harga));
+  renderSellPage();
+}
+
+function renderSellPreview() {
+  const p = document.getElementById("sellPreviewCard"); if (!p) return;
+  const rng = computeOfferRange(sellForm);
+  p.innerHTML = '<span class="sell-preview-badge"><i class="fi fi-sr-document"></i>Ringkasan Setoran</span><div class="preview-row"><span>Label Akun</span><strong>' + (sellForm.nama || "-") + '</strong></div><div class="preview-row"><span>UID</span><strong>' + (sellForm.uid || "-") + '</strong></div><div class="preview-row"><span>Level / Rank</span><strong>Lv.' + (sellForm.level || "-") + ' · ' + sellForm.rank + '</strong></div><div class="preview-row"><span>Login Utama</span><strong>' + sellForm.bind + '</strong></div><div class="preview-row"><span>Keamanan</span><strong>' + sellForm.aman + '</strong></div><div class="preview-row"><span>Kategori Spek</span><strong>' + rng.label + '</strong></div><div class="preview-row"><span>Range Tawaran</span><strong>' + rng.text + '</strong></div><div class="preview-price-box"><span>Harga Harapan</span><strong>' + formatPrice(sellForm.harga || 0) + '</strong></div>';
+}
+
+function renderSellPage() {
+  document.getElementById("sellProgressFill").style.width = ((sellStep / 3) * 100) + "%";
+  document.getElementById("sellStepsBar").innerHTML = ["Spek Akun", "Bind & Aman", "Harga & WA"].map(function(t, i) {
+    const n = i + 1, cls = n === sellStep ? "active" : (n < sellStep ? "done" : "");
+    return '<div class="sell-pill ' + cls + '"><span class="num">' + (n < sellStep ? "✓" : n) + '</span><span>' + t + '</span></div>';
+  }).join("");
+  const card = document.getElementById("sellFormCard");
+  if (sellStep === 1) {
+    const metas = Object.keys(META_TIERS);
+    card.innerHTML = '<div class="sell-card-head"><h3>1. Spek Dasar Akun</h3><p>Pilih senjata/item yang ada. SG Evo / SG OPM / Evo menaikkan range, skin di luar list menurunkan range.</p></div><div class="field-group"><label>Label / Nama Akun</label><input id="sNama" value="' + sellForm.nama + '" placeholder="Contoh: Akun SG Evo & Bundle" oninput="syncSellLive()"></div><div class="field-group"><label>UID Akun</label><input id="sUid" value="' + sellForm.uid + '" inputmode="numeric" placeholder="Contoh: 123456789" oninput="syncSellLive()"></div><div class="field-group"><label>Level &amp; Rank Saat Ini</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><input id="sLevel" type="number" value="' + sellForm.level + '" placeholder="Level (cth: 65)" oninput="syncSellLive()"><select id="sRank" onchange="syncSellLive()">' + ["Heroic", "Master", "Grandmaster", "Diamond"].map(function(r) { return '<option ' + (sellForm.rank === r ? "selected" : "") + '>' + r + '</option>'; }).join("") + '</select></div></div><div class="field-group"><label>Pilih Senjata / Item Unggulan</label><div class="tag-select-grid">' + metas.map(function(m) { const act = sellForm.skinMeta.indexOf(m) !== -1; return '<button type="button" class="tag-chip ' + (act ? "selected" : "") + '" onclick="toggleSellMetaChip(\'' + m + '\')"><i class="fi ' + (act ? "fi-sr-check-circle" : "fi-rr-circle") + '"></i>' + m + '</button>'; }).join("") + '</div></div><div class="wizard-nav"><button class="button-primary" onclick="nextSellStep(2)">Lanjut ke Keamanan <i class="fi fi-sr-arrow-right"></i></button></div>';
+  } else if (sellStep === 2) {
+    const binds = [{ val: "Google", icon: "fi-brands-google", desc: "Bind Gmail utama" }, { val: "Facebook", icon: "fi-brands-facebook", desc: "Bind akun FB" }, { val: "VK", icon: "fi-sr-shield", desc: "Bind akun VK" }];
+    const safes = [{ val: "Lengkap", icon: "fi-sr-check-circle", desc: "Email & no. pemulihan aman" }, { val: "Tidak Lengkap", icon: "fi-sr-exclamation", desc: "Sebagian data lupa" }, { val: "Bind Mati", icon: "fi-sr-lock", desc: "Bind kosong / nonaktif" }];
+    card.innerHTML = '<div class="sell-card-head"><h3>2. Login &amp; Keamanan Akun</h3><p>Status keamanan ikut menyesuaikan posisi harga dalam range.</p></div><div class="field-group"><label>Login Utama Akun</label><div class="option-cards">' + binds.map(function(b) { return '<div class="opt-card ' + (sellForm.bind === b.val ? "selected" : "") + '" onclick="pickSellOption(\'bind\',\'' + b.val + '\')"><i class="fi ' + b.icon + '"></i><strong>' + b.val + '</strong><small>' + b.desc + '</small></div>'; }).join("") + '</div></div><div class="field-group"><label>Status Data Pemulihan</label><div class="option-cards">' + safes.map(function(a) { return '<div class="opt-card ' + (sellForm.aman === a.val ? "selected" : "") + '" onclick="pickSellOption(\'aman\',\'' + a.val + '\')"><i class="fi ' + a.icon + '"></i><strong>' + a.val + '</strong><small>' + a.desc + '</small></div>'; }).join("") + '</div></div><div class="wizard-nav"><button class="button-secondary" onclick="nextSellStep(1)"><i class="fi fi-sr-arrow-left"></i> Kembali</button><button class="button-primary" onclick="nextSellStep(3)">Lanjut ke Harga <i class="fi fi-sr-arrow-right"></i></button></div>';
+  } else {
+    const rng = computeOfferRange(sellForm);
+    card.innerHTML = '<div class="sell-card-head"><h3>3. Range Harga Penawaran &amp; Kontak</h3><p>Max budget Rp300.000, batas bawah terendah Rp80.000.</p></div><div class="range-box"><div class="range-top"><span>Range Tawaran (' + rng.label + ')</span><strong>' + rng.text + '</strong></div><div class="range-sub">Batas terendah toko: Rp80.000 · Maksimal budget: Rp300.000</div><div class="range-btns"><button type="button" class="est-btn" onclick="applyRangePrice(' + rng.min + ')"><i class="fi fi-sr-arrow-down"></i>Pakai ' + formatPrice(rng.min) + '</button><button type="button" class="est-btn" onclick="applyRangePrice(' + rng.mid + ')"><i class="fi fi-sr-check"></i>Pakai Tengah (' + formatPrice(rng.mid) + ')</button><button type="button" class="est-btn" onclick="applyRangePrice(' + rng.max + ')"><i class="fi fi-sr-arrow-up"></i>Pakai ' + formatPrice(rng.max) + '</button></div></div><div class="field-group"><label>Harga Harapan (Rp)</label><input id="sHarga" type="number" min="80000" max="300000" value="' + sellForm.harga + '" placeholder="Contoh: ' + rng.mid + '" oninput="syncSellLive()"></div><div class="field-group"><label>Nama Seller *</label><input id="sSeller" value="' + sellForm.sellerName + '" placeholder="Nama panggilan lu" oninput="syncSellLive()"></div><div class="field-group"><label>Nomor WhatsApp Aktif *</label><input id="sWA" value="' + sellForm.sellerWA + '" inputmode="numeric" placeholder="08xxxxxxxxxx" oninput="syncSellLive()"></div><div class="field-group"><label>Catatan Tambahan (opsional)</label><textarea id="sCatatan" rows="3" placeholder="Info tambahan akun..." oninput="syncSellLive()">' + sellForm.catatan + '</textarea></div><div class="wizard-nav"><button class="button-secondary" onclick="nextSellStep(2)"><i class="fi fi-sr-arrow-left"></i> Kembali</button><button class="button-primary" id="btnSubmitSell" onclick="submitSellToWA()"><i class="fi fi-brands-whatsapp"></i> Setor &amp; Chat Admin</button></div>';
+  }
+  renderSellPreview();
+}
+function toggleSellMetaChip(v) { sellForm.skinMeta = sellForm.skinMeta.indexOf(v) !== -1 ? sellForm.skinMeta.filter(function(x) { return x !== v; }) : sellForm.skinMeta.concat([v]); renderSellPage(); }
+function pickSellOption(k, v) { sellForm[k] = v; renderSellPage(); }
+function syncSellLive() { saveCurrentSellFields(); renderSellPreview(); }
+function saveCurrentSellFields() {
+  if (sellStep === 1) { sellForm.nama = document.getElementById("sNama").value.trim(); sellForm.uid = document.getElementById("sUid").value.trim(); sellForm.level = document.getElementById("sLevel").value.trim(); sellForm.rank = document.getElementById("sRank").value; }
+  else if (sellStep === 3) { sellForm.harga = document.getElementById("sHarga").value.trim(); sellForm.sellerName = document.getElementById("sSeller").value.trim(); sellForm.sellerWA = document.getElementById("sWA").value.trim(); sellForm.catatan = document.getElementById("sCatatan").value.trim(); }
+}
+function nextSellStep(s) { saveCurrentSellFields(); sellStep = s; renderSellPage(); }
+async function submitSellToWA() {
+  saveCurrentSellFields();
+  if (!sellForm.sellerName || !sellForm.sellerWA) { showToast("Isi nama dan nomor WhatsApp dulu."); return; }
+  const rng = computeOfferRange(sellForm);
+  const rawHarga = Number(sellForm.harga || rng.mid);
+  const finalHarga = Math.min(MAX_BUDGET_CAP, Math.max(MIN_OFFER_FLOOR, rawHarga));
+  sellForm.harga = String(finalHarga);
+
+  const btn = document.getElementById("btnSubmitSell"); if (btn) { btn.disabled = true; btn.textContent = "Mengirim Data..."; }
+  await sendToGoogleSheets({ type: "SETOR_AKUN", sellerName: sellForm.sellerName, sellerWA: sellForm.sellerWA, nama: sellForm.nama, uid: sellForm.uid, level: sellForm.level, rank: sellForm.rank, skinMeta: sellForm.skinMeta.join(", "), rangeTawaran: rng.text, bind: sellForm.bind, aman: sellForm.aman, harga: finalHarga, catatan: sellForm.catatan });
+  if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fi fi-brands-whatsapp"></i> Setor & Chat Admin'; }
+  const code = "ST-" + Math.random().toString(36).slice(2, 7).toUpperCase();
+  const dateNow = new Date().toLocaleString("id-ID", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  const msg = ["RAYANSTORE - JUAL / SETOR AKUN", "Kode Setor: " + code, "Nama Seller: " + sellForm.sellerName, "WA Seller: " + sellForm.sellerWA, "Akun: " + (sellForm.nama || "-") + " | UID: " + (sellForm.uid || "-"), "Level: " + (sellForm.level || "-") + " | Rank: " + sellForm.rank, "Spek / Skin: " + (sellForm.skinMeta.length ? sellForm.skinMeta.join(", ") : "Non-List / Dasar"), "Range Tawaran: " + rng.text, "Login: " + sellForm.bind + " | Data: " + sellForm.aman, "Harga Harapan: " + formatPrice(finalHarga), "Catatan: " + (sellForm.catatan || "-")].join("\n");
+  addHistoryLog({ type: "SETOR_AKUN", code: code, date: dateNow, title: sellForm.nama || "Setor Akun FF", meta: sellForm.sellerName + " · Range " + rng.text, amount: finalHarga, waText: msg });
+  showToast("Data setoran tercatat!");
+  window.open("https://wa.me/" + (STORE_WHATSAPP.replace(/\D/g, "") || "6280000000000") + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+}
+
+function pickHistoryFilter(btn, f) {
+  document.querySelectorAll("#historyChips .chip-btn").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+  historyFilter = f;
+  renderHistoryPage();
+}
+function resendHistoryWA(idx) {
+  const logs = getHistoryLogs(), item = logs[idx];
+  if (!item || !item.waText) return;
+  window.open("https://wa.me/" + (STORE_WHATSAPP.replace(/\D/g, "") || "6280000000000") + "?text=" + encodeURIComponent(item.waText), "_blank", "noopener");
+}
+function renderHistoryPage() {
+  const el = document.getElementById("historyContent"); if (!el) return;
+  const logs = getHistoryLogs().filter(function(x) { return historyFilter === "ALL" || x.type === historyFilter; });
+  if (!logs.length) {
+    el.innerHTML = '<div class="empty"><i class="fi fi-sr-time-past"></i><h3>Belum ada riwayat.</h3><p>Transaksi booking, checkout, atau setor akun akan muncul di sini.</p></div>';
+    return;
+  }
+  el.innerHTML = '<div class="hist-list">' + logs.map(function(item, idx) {
+    const badgeCls = item.type === "BOOKING" ? "book" : (item.type === "SETOR_AKUN" ? "sell" : "");
+    const badgeText = item.type === "BOOKING" ? "BOOKING DP" : (item.type === "SETOR_AKUN" ? "SETOR AKUN" : "PESANAN");
+    return '<div class="hist-card"><div class="hist-top"><span class="hist-tag ' + badgeCls + '">' + badgeText + '</span><span class="hist-code">' + item.code + ' · ' + item.date + '</span></div><div class="hist-title">' + item.title + '</div><div class="hist-meta">' + item.meta + '</div><div class="hist-foot"><strong class="hist-amount">' + formatPrice(item.amount) + '</strong><div class="hist-actions"><button class="hist-mini-btn" onclick="resendHistoryWA(' + idx + ')"><i class="fi fi-brands-whatsapp"></i>Kirim WA</button></div></div></div>';
+  }).join("") + '</div>';
+}
+
+function toggleWhatsApp() { document.getElementById("waPanel").classList.toggle("show"); }
+function sendWhatsApp() {
+  const m = document.getElementById("waMessage").value.trim(); if (!m) { showToast("Tulis pesan dulu."); return; }
+  window.open("https://wa.me/" + (STORE_WHATSAPP.replace(/\D/g, "") || "6280000000000") + "?text=" + encodeURIComponent(m), "_blank", "noopener");
+}
+function setTheme(d) { document.body.classList.toggle("dark", Boolean(d)); localStorage.setItem("rayanTheme", d ? "dark" : "light"); document.getElementById("darkSwitch").checked = Boolean(d); }
+function resetSettings() { localStorage.removeItem("rayanTheme"); setTheme(false); showToast("Pengaturan direset."); }
+
+function initApp() {
+  const rf = document.getElementById("reportForm");
+  if (rf) rf.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const m = document.getElementById("reportMessage").value.trim(); if (!m) return;
+    document.getElementById("waMessage").value = "LAPORAN RAYANSTORE\nNama: " + (document.getElementById("reportName").value.trim() || "-") + "\nJenis: " + document.getElementById("reportType").value + "\nPesan: " + m;
+    toggleWhatsApp();
+  });
+  setTheme(localStorage.getItem("rayanTheme") === "dark");
+  buildStatic(); renderAll();
+}
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initApp);
+else initApp();
+</script>
+</body>
+</html>
